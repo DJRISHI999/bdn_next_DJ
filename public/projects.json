@@ -1,0 +1,50 @@
+[
+  {
+    "date": "March 29, 2025",
+    "type": "Residential",
+    "heading": "Avadh Enclave",
+    "image1": "/images/avadh-enclave-1.webp",
+    "image2": "/images/avadh-enclave-2.webp",
+    "image3": "/images/avadh-enclave-3.webp",
+    "video": "/videos/avadh-enclave.mp4",
+    "text": "## Avadh Enclave\n\nAvadh Enclave is a luxurious yet affordable housing project located near Jewar Airport. It offers modern amenities and a serene environment, making it the perfect choice for families and professionals alike.",
+    "slug": "avadh-enclave",
+    "meta": "Affordable Housing, Jewar, Real Estate"
+  },
+  {
+    "date": "March 20, 2025",
+    "type": "Commercial",
+    "heading": "Green Valley",
+    "image1": "/images/green-valley-1.webp",
+    "image2": "/images/green-valley-2.webp",
+    "image3": "/images/green-valley-3.webp",
+    "video": "/videos/green-valley.mp4",
+    "text": "## Green Valley\n\nGreen Valley is a premium commercial project located in Noida. It features state-of-the-art office spaces, retail outlets, and recreational areas, making it an ideal destination for businesses and shoppers.",
+    "slug": "green-valley",
+    "meta": "Commercial, Noida, Real Estate"
+  },
+  {
+    "date": "March 10, 2025",
+    "type": "Residential",
+    "heading": "Skyline Heights",
+    "image1": "/images/skyline-heights-1.webp",
+    "image2": "/images/skyline-heights-2.webp",
+    "image3": "/images/skyline-heights-3.webp",
+    "video": "/videos/skyline-heights.mp4",
+    "text": "## Skyline Heights\n\nSkyline Heights offers premium high-rise apartments in Gurgaon with breathtaking views and modern amenities. It is designed for those who seek luxury and convenience in one place.",
+    "slug": "skyline-heights",
+    "meta": "Luxury Apartments, Gurgaon, Real Estate"
+  },
+  {
+    "date": "March 5, 2025",
+    "type": "Residential",
+    "heading": "Palm Residency",
+    "image1": "/images/palm-residency-1.webp",
+    "image2": "/images/palm-residency-2.webp",
+    "image3": "/images/palm-residency-3.webp",
+    "video": "/videos/palm-residency.mp4",
+    "text": "## Palm Residency\n\nPalm Residency offers affordable villas surrounded by lush greenery in Faridabad. It is the perfect choice for families looking for a peaceful and eco-friendly living environment.",
+    "slug": "palm-residency",
+    "meta": "Affordable Villas, Faridabad, Real Estate"
+  }
+]

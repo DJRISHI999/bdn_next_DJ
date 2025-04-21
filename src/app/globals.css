@@ -1,15 +1,34 @@
+
+/* Import Tailwind CSS */
 @import "tailwindcss";
+
+/* Define custom fonts using @font-face */
+@font-face {
+  font-family: 'Inter';
+  src: url('../../public/fonts/Inter_24pt-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('../../public/fonts/Outfit-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow';
+  src: url('../../public/fonts/Barlow-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +38,28 @@
   }
 }
 
+/* Define font utility classes */
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-barlow {
+  font-family: 'Barlow', sans-serif;
+}
+
+/* Apply default font-family */
+* {
+  font-family: 'Outfit', sans-serif; /* Default font */
+}
+
+
+/* Apply font-inter to specific elements if needed */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif; /* Default body font */
 }

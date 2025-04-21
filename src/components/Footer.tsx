@@ -4,6 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Particles } from "@/components/magicui/particles"; // Adjust the import path if necessary
 
+const projects = [
+  { title: "Avadh Enclave", slug: "avadh-enclave" },
+  { title: "Green Valley", slug: "green-valley" },
+  { title: "Skyline Heights", slug: "skyline-heights" },
+  { title: "Palm Residency", slug: "palm-residency" },
+];
+
 export default function Footer() {
   return (
     <div className="relative">
@@ -14,10 +21,9 @@ export default function Footer() {
         color="#00ff00" // Changed color to white
         size={5} // Increased size
         vx={0.1}
-        // vy={0.1} // Increased velocity
       />
 
-      <footer className="bg-gray-850/80 backdrop-blur-sm  text-gray-300 py-8 font-outfit relative z-10 border-t border-green-700">
+      <footer className="bg-gray-850/80 backdrop-blur-sm text-gray-300 py-8 font-outfit relative z-10 border-t border-green-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Section: Logo and Navigation */}
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
@@ -44,32 +50,49 @@ export default function Footer() {
             </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-wrap justify-center md:justify-end space-x-6 ">
+            <div className="flex flex-wrap justify-center md:justify-end space-x-6">
               <Link
                 href="/"
-                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-sm"
+                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-lg"
               >
                 Home
               </Link>
               <Link
                 href="/projects"
-                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-sm"
+                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-lg"
               >
                 Projects
               </Link>
               <Link
                 href="/services"
-                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-sm"
+                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-lg"
               >
                 Services
               </Link>
               <Link
                 href="/contact"
-                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-sm"
+                className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-lg"
               >
                 Contact Us
               </Link>
             </div>
+          </div>
+
+          {/* Project Links */}
+          <div className="mt-8">
+            <h2 className="text-lg font-bold text-white mb-4">Our Projects</h2>
+            <ul className="flex flex-wrap justify-center md:justify-start space-x-4">
+              {projects.map((project) => (
+                <li key={project.slug}>
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="text-gray-400 hover:text-green-400 transition-colors duration-300"
+                  >
+                    {project.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Social Media Links */}
@@ -125,15 +148,15 @@ export default function Footer() {
               © {new Date().getFullYear()} Bhoodhan Infratech Pvt. Ltd. All rights reserved.
             </p>
           </div>
-        </div>
 
-        {/* Back to Top Button */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600"
-        >
-          ↑
-        </button>
+          {/* Back to Top Button */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-4 right-4 bg-green-500 text-white w-12 h-12 rounded-full shadow-lg hover:bg-green-600 flex items-center justify-center cursor-pointer"
+          >
+            ↑
+          </button>
+        </div>
       </footer>
     </div>
   );
