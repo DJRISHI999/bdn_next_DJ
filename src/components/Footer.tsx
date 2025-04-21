@@ -3,13 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Particles } from "@/components/magicui/particles"; // Adjust the import path if necessary
-
-const projects = [
-  { title: "Avadh Enclave", slug: "avadh-enclave" },
-  { title: "Green Valley", slug: "green-valley" },
-  { title: "Skyline Heights", slug: "skyline-heights" },
-  { title: "Palm Residency", slug: "palm-residency" },
-];
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
   return (
@@ -78,22 +73,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Project Links */}
-          <div className="mt-8">
-            <h2 className="text-lg font-bold text-white mb-4">Our Projects</h2>
-            <ul className="flex flex-wrap justify-center md:justify-start space-x-4">
-              {projects.map((project) => (
-                <li key={project.slug}>
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="text-gray-400 hover:text-green-400 transition-colors duration-300"
-                  >
-                    {project.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+         
 
           {/* Social Media Links */}
           <div className="flex justify-center space-x-4 mt-6">
@@ -103,7 +83,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500"
             >
-              <i className="fab fa-facebook-f"></i>
+              <FontAwesomeIcon icon={faFacebookF} />
             </a>
             <a
               href="https://instagram.com"
@@ -111,7 +91,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-pink-500"
             >
-              <i className="fab fa-instagram"></i>
+              <FontAwesomeIcon icon={faInstagram} />
             </a>
             <a
               href="https://linkedin.com"
@@ -119,7 +99,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-600"
             >
-              <i className="fab fa-linkedin-in"></i>
+              <FontAwesomeIcon icon={faLinkedinIn} />
             </a>
           </div>
 

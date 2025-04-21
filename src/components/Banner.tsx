@@ -156,7 +156,8 @@ export function Carousel({ slides }: CarouselProps) {
     }
   };
 
-  const id = useId();
+
+  const id: string = useId();
 
   return (
     <div

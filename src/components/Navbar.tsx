@@ -41,7 +41,8 @@ export default function Navbar() {
             {["Home", "About", "Login", "Sign Up"].map((item, index) => (
               <Link
                 key={index}
-                href={`/${item.toLowerCase()}`}
+
+                href={item==="Home" ? "/" : `/${item.toLowerCase()}`}
                 className={twMerge(
                   clsx(
                     "text-lg font-medium transition-transform duration-300",

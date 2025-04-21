@@ -203,7 +203,7 @@ const cards = [
 ];
 
 export const useOutsideClick = (
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>, // Allow null here
   callback: () => void
 ) => {
   useEffect(() => {

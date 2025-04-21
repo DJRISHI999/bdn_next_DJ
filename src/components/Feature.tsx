@@ -263,15 +263,15 @@ export const SkeletonThree = () => {
 export const SkeletonFour = () => {
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="h-[28rem] w-[28rem] md:h-[32rem] md:w-[32rem] flex flex-col items-center justify-center relative bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+      <div className="w-full max-w-[80vw] sm:max-w-[20rem] md:max-w-[22rem] lg:max-w-[24rem] flex flex-col items-center justify-center relative bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg">
         <div className="absolute inset-0 bg-gradient-to-b from-white dark:from-black via-transparent to-transparent opacity-50" />
         <Lens zoomFactor={1.5} lensSize={300}>
           <img
             src="./images/bhoodhan_card.webp"
             alt="Bhoodhan Card"
-            className="h-full w-full object-cover"
-            width={2000}
-            height={2000}
+            className="w-full h-auto object-cover"
+            width={1200}
+            height={1200}
           />
         </Lens>
       </div>
