@@ -2,7 +2,8 @@
 
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Particles } from "./magicui/particles"; // Adjust the import path if necessary
+import { Particles } from "./magicui/particles";
+import Link from "next/link";
 
 export default function ExpandableCardDemo() {
   const [active, setActive] = useState<(typeof cards)[number] | null>(null);
@@ -30,15 +31,16 @@ export default function ExpandableCardDemo() {
 
   return (
     <div className="relative py-10">
-  
+      {/* Particles Background */}
       <Particles
         className="absolute inset-0 -z-10"
         quantity={10}
-        color="#0000FF" 
-        size={6} 
+        color="#0000FF"
+        size={6}
         vx={0.11}
       />
 
+      {/* Overlay for Active Card */}
       <AnimatePresence>
         {active && (
           <motion.div
@@ -49,6 +51,8 @@ export default function ExpandableCardDemo() {
           />
         )}
       </AnimatePresence>
+
+      {/* Active Card */}
       <AnimatePresence>
         {active && (
           <div className="fixed inset-0 grid place-items-center z-[100]">
@@ -82,11 +86,13 @@ export default function ExpandableCardDemo() {
                       {active.description}
                     </motion.p>
                   </div>
+                  {/* Use motion.a for external navigation */}
                   <motion.a
                     layout
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-white"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-white cursor-pointer"
                   >
                     {active.ctaText}
                   </motion.a>
@@ -106,6 +112,8 @@ export default function ExpandableCardDemo() {
           </div>
         )}
       </AnimatePresence>
+
+      {/* Cards Grid */}
       <ul className="max-w-2xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4">
         {cards.map((card) => (
           <motion.div
@@ -150,9 +158,9 @@ const cards = [
   {
     description: "New Jewar Airport",
     title: "Avadh Enclave",
-    src: "./images/gate.webp",
+    src: "/images/gate.webp",
     ctaText: "Explore",
-    ctaLink: "https://ui.aceternity.com/templates",
+    ctaLink: "/projects/avadh-enclave",
     content: () => (
       <p>
         Super affordable housing project in Jewar in just minutes from Jewar
@@ -161,42 +169,42 @@ const cards = [
     ),
   },
   {
-    description: "Babbu Maan",
-    title: "Mitran Di Chhatri",
-    src: "https://assets.aceternity.com/demos/babbu-maan.jpeg",
-    ctaText: "Visit",
-    ctaLink: "https://ui.aceternity.com/templates",
+    description: "Noida, Uttar Pradesh",
+    title: "Green Valley",
+    src: "/images/green-valley-1.webp",
+    ctaText: "Explore",
+    ctaLink: "/projects/green-valley",
     content: () => (
       <p>
-        Babu Maan, a legendary Punjabi singer, is renowned for his soulful
-        voice and profound lyrics that resonate deeply with his audience.
+        Green Valley is a premier residential project in Noida, offering modern
+        amenities and a serene environment for families.
       </p>
     ),
   },
   {
-    description: "Metallica",
-    title: "For Whom The Bell Tolls",
-    src: "https://assets.aceternity.com/demos/metallica.jpeg",
-    ctaText: "Visit",
-    ctaLink: "https://ui.aceternity.com/templates",
+    description: "Gurgaon, Haryana",
+    title: "Skyline Heights",
+    src: "/images/skyline-heights-1.webp",
+    ctaText: "Explore",
+    ctaLink: "/projects/skyline-heights",
     content: () => (
       <p>
-        Metallica, an iconic American heavy metal band, is renowned for their
-        powerful sound and intense performances that resonate deeply with
-        their audience.
+        Skyline Heights is a luxurious high-rise apartment complex in Gurgaon,
+        providing breathtaking views and top-notch facilities for residents.
       </p>
     ),
   },
   {
-    description: "Lord Himesh",
-    title: "Aap Ka Suroor",
-    src: "https://assets.aceternity.com/demos/aap-ka-suroor.jpeg",
-    ctaText: "Visit",
-    ctaLink: "https://ui.aceternity.com/templates",
+    description: "Faridabad, Haryana",
+    title: "Palm Residency",
+    src: "/images/palm-residency-1.webp",
+    ctaText: "Explore",
+    ctaLink: "/projects/palm-residency",
     content: () => (
       <p>
-        Himesh Reshammiya, a renowned Indian music composer, singer, and actor,
-        is celebrated for his distinctive voice and innovative compositions.
+        Palm Residency offers affordable villas surrounded by lush greenery in
+        Faridabad. It is the perfect choice for families looking for a peaceful
+        and eco-friendly living environment.
       </p>
     ),
   },

@@ -41,8 +41,11 @@ export default function Navbar() {
             {["Home", "About", "Login", "Sign Up"].map((item, index) => (
               <Link
                 key={index}
-
-                href={item==="Home" ? "/" : `/${item.toLowerCase()}`}
+                href={
+                  item === "Home"
+                    ? "/"
+                    : `/${item.toLowerCase().replaceAll(" ", "")}`
+                }
                 className={twMerge(
                   clsx(
                     "text-lg font-medium transition-transform duration-300",
@@ -79,12 +82,16 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden bg-gray-800/90 backdrop-blur-md pb-4" 
+          className="md:hidden bg-gray-800/90 backdrop-blur-md pb-4"
         >
           {["Home", "About", "Login", "Sign Up"].map((item, index) => (
             <Link
               key={index}
-              href={`/${item.toLowerCase()}`}
+              href={
+                item === "Home"
+                  ? "/"
+                  : `/${item.toLowerCase().replaceAll(" ", "")}`
+              }
               className={twMerge(
                 clsx(
                   "block px-4 py-2 text-lg transition-transform duration-300",

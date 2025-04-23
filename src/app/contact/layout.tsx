@@ -1,7 +1,7 @@
 import type {Metadata} from "next"
 import { ReactNode } from 'react'
 export const metadata: Metadata = {
-  title: "Bhoodhan Infratech | Project Details",
+  title: "Bhoodhan Infratech | Contact US",
   description: "Explore detailed information about our real estate projects.",
 };
 
