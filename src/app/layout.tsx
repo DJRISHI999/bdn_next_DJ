@@ -13,14 +13,14 @@ export default function RootLayout({
   const pathname = usePathname();
 
   // Exclude Navbar and Footer for admin dashboard
-  const isAdminDashboard = pathname.startsWith("/dashboard/admin");
+  const isDashboard = pathname.startsWith("/dashboard/customer")||pathname.startsWith("/dashboard/admin") || pathname.startsWith("/dashboard/associate");
 
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-        {!isAdminDashboard && <Navbar />}
+      {!isDashboard && <Navbar />}
         <main>{children}</main>
-        {!isAdminDashboard && <Footer />}
+        {!isDashboard && <Footer/>}
       </body>
     </html>
   );

@@ -1,13 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { IconArrowLeft, IconSettings, IconUserBolt, IconTree } from "@tabler/icons-react";
+import { IconArrowLeft, IconSettings, IconTree } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
 import { Particles } from "@/components/magicui/particles";
+import EditProfile from "./edit-profile";
+import BookSiteVisit from "./book-site-visit";
+import TreeView from "./tree-view";
 
 export default function SidebarDemo() {
   const [activeSection, setActiveSection] = useState("tree-view"); // Default section is Tree View
+
+  // Redirect to home if "logout" is clicked
+  useEffect(() => {
+    if (activeSection === "logout") {
+      window.location.href = "/"; // Replace "/" with your home route
+    }
+  }, [activeSection]);
 
   const links = [
     {
@@ -23,16 +33,10 @@ export default function SidebarDemo() {
       section: "edit-profile",
     },
     {
-      label: "Edit Associates",
-      href: "#edit-associates",
-      icon: <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />,
-      section: "edit-associates",
-    },
-    {
-      label: "Approve Site Bookings",
-      href: "#approve-site-bookings",
+      label: "Book Site Visit",
+      href: "#book-site-visit",
       icon: <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />,
-      section: "approve-site-bookings",
+      section: "book-site-visit",
     },
     {
       label: "Tree View",
@@ -84,12 +88,15 @@ export default function SidebarDemo() {
           </SidebarBody>
         </Sidebar>
         <div className="flex-1 p-4">
-         
+        
+
+          {/* Render Active Section */}
+          {activeSection === "edit-profile" && <EditProfile />}
+          {activeSection === "book-site-visit" && <BookSiteVisit />}
+          {activeSection === "tree-view" && <TreeView />}
           {activeSection === "logout" && <div>Logging out...</div>}
         </div>
       </div>
     </div>
   );
 }
-
-

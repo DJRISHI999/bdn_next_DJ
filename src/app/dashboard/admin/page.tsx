@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { IconArrowLeft, IconSettings, IconUserBolt, IconTree } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,13 @@ import { Particles } from "@/components/magicui/particles";
 
 export default function SidebarDemo() {
   const [activeSection, setActiveSection] = useState("tree-view"); // Default section is Tree View
+
+  // Redirect to home if "logout" is clicked
+  useEffect(() => {
+    if (activeSection === "logout") {
+      window.location.href = "/"; // Replace "/" with your home route
+    }
+  }, [activeSection]);
 
   const links = [
     {

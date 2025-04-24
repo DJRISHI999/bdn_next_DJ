@@ -1,9 +1,9 @@
-// filepath: e:\Projects\BDN_nextjs\frontend\bhoodhan\src\app\dashboard\admin\approve-sitebookings.tsx
+
 "use client";
 
 import { Particles } from "@/components/magicui/particles";
 
-export default function ApproveSiteBookings() {
+export default function BookSiteVisit() {
   return (
     <div className="relative h-full bg-transparent p-4">
       {/* Particle Effect */}
@@ -20,7 +20,7 @@ export default function ApproveSiteBookings() {
       {/* Page Content */}
       <div className="relative z-10">
         <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-          Approve Site Bookings
+          Book Site Visit
         </h2>
         <p className="mt-2 text-neutral-600 dark:text-neutral-400">
           This page allows you to approve or reject site booking requests. Use

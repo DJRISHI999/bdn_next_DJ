@@ -26,6 +26,16 @@ export default function EditAssociates() {
           View and manage associate details effectively.
         </p>
       </div>
+
+      {/* Back to Home Link */}
+      <div className="absolute top-4 right-4 z-20">
+        <a
+          href="/"
+          className="text-blue-500 hover:underline cursor-pointer"
+        >
+          &larr; Back to Home
+        </a>
+      </div>
     </div>
   );
 }
