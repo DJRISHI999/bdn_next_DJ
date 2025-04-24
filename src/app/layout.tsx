@@ -1,5 +1,6 @@
-"use client"; // Mark this as a Client Component
+"use client";
 
+import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -9,12 +10,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  // Exclude Navbar and Footer for admin dashboard
+  const isAdminDashboard = pathname.startsWith("/dashboard/admin");
+
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-        <Navbar />
+        {!isAdminDashboard && <Navbar />}
         <main>{children}</main>
-        <Footer />
+        {!isAdminDashboard && <Footer />}
       </body>
     </html>
   );
