@@ -1,8 +1,32 @@
 import mongoose, { Schema, model, models } from "mongoose";
 
-const commissionRates = {
-  BEGINNER: 500,
-  STARTER: 600,
+// Define the valid keys for commissionRates as a string literal union type
+type CommissionLevel =
+  | "BEGINNER"
+  | "STARTER"
+  | "SALES EXECUTIVE"
+  | "SR. SALES EXECUTIVE"
+  | "STAR SALES EXECUTIVE"
+  | "SALES LEADER"
+  | "SR. SALES LEADER"
+  | "STAR SALES LEADER"
+  | "SALES MANAGER"
+  | "SR. SALES MANAGER"
+  | "PEARL"
+  | "STAR PEARL"
+  | "EMERALD"
+  | "STAR EMERALD"
+  | "RUBY"
+  | "STAR RUBY"
+  | "SHAFIRE"
+  | "STAR SHAFIRE"
+  | "DIAMOND"
+  | "STAR DIAMOND";
+
+// Define the commissionRates object with the keys as the CommissionLevel type
+const commissionRates: Record<CommissionLevel, number> = {
+  "BEGINNER": 500,
+  "STARTER": 600,
   "SALES EXECUTIVE": 700,
   "SR. SALES EXECUTIVE": 800,
   "STAR SALES EXECUTIVE": 900,
@@ -11,15 +35,15 @@ const commissionRates = {
   "STAR SALES LEADER": 1100,
   "SALES MANAGER": 1150,
   "SR. SALES MANAGER": 1200,
-  PEARL: 1250,
+  "PEARL": 1250,
   "STAR PEARL": 1300,
-  EMERALD: 1350,
+  "EMERALD": 1350,
   "STAR EMERALD": 1400,
-  RUBY: 1450,
+  "RUBY": 1450,
   "STAR RUBY": 1500,
-  SHAFIRE: 1550,
+  "SHAFIRE": 1550,
   "STAR SHAFIRE": 1600,
-  DIAMOND: 1650,
+  "DIAMOND": 1650,
   "STAR DIAMOND": 1700,
 };
 
@@ -105,17 +129,21 @@ UserSchema.statics.updateAssociate = async function (userId: string, updates: { 
 
   // Update level and commission
   if (updates.level) {
-    if (!commissionRates[updates.level]) {
+    // Validate the level before accessing commissionRates
+    if (!Object.keys(commissionRates).includes(updates.level)) {
       throw new Error("Invalid level provided.");
     }
-    associate.level = updates.level;
-    associate.commission = commissionRates[updates.level];
+    associate.level = updates.level as CommissionLevel; // Cast to CommissionLevel
+    associate.commission = commissionRates[updates.level as CommissionLevel]; // Cast to CommissionLevel
   } else if (updates.commission) {
-    const level = Object.keys(commissionRates).find((key) => commissionRates[key] === updates.commission);
+    // Find the level corresponding to the provided commission
+    const level = Object.keys(commissionRates).find(
+      (key) => commissionRates[key as CommissionLevel] === updates.commission
+    );
     if (!level) {
       throw new Error("Invalid commission provided.");
     }
-    associate.level = level;
+    associate.level = level as CommissionLevel; // Cast to CommissionLevel
     associate.commission = updates.commission;
   }
 
