@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { IconArrowLeft, IconSettings, IconUserBolt, IconTree } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import EditProfile from "./edit-profile";
+import EditProfile from "../shared/edit-profile";
 import EditAssociates from "./edit-assciates";
 import ApproveSiteBookings from "./approve-sitebookings";
-import TreeView from "./tree-view";
+import TreeView from "../shared/tree-view";
 import { Particles } from "@/components/magicui/particles";
 
 export default function SidebarDemo() {

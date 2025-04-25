@@ -5,9 +5,9 @@ import { IconArrowLeft, IconSettings, IconTree } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
 import { Particles } from "@/components/magicui/particles";
-import EditProfile from "./edit-profile";
+import EditProfile from "../shared/edit-profile";
 import BookSiteVisit from "./book-site-visit";
-import TreeView from "./tree-view";
+import TreeView from "../shared/tree-view";
 
 export default function SidebarDemo() {
   const [activeSection, setActiveSection] = useState("tree-view"); // Default section is Tree View

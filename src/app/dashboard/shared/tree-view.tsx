@@ -1,49 +1,12 @@
-// filepath: e:\Projects\BDN_nextjs\frontend\bhoodhan\src\app\dashboard\admin\tree-view.tsx
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Define the type for the tree structure
 type TreeNodeType = {
   name: string;
+  userId: string;
   children?: TreeNodeType[];
-};
-
-// Sample data for the tree structure
-const treeData: TreeNodeType = {
-  name: "Admin",
-  children: [
-    {
-      name: "ass1",
-      children: [
-        { name: "ass1-child1" },
-        { name: "ass1-child2" },
-        { name: "ass1-child3" },
-        { name: "ass1-child4" },
-        { name: "ass1-child5" },
-      ],
-    },
-    {
-      name: "ass2",
-      children: [
-        { name: "ass2-child1" },
-        { name: "ass2-child2" },
-        { name: "ass2-child3" },
-        { name: "ass2-child4" },
-        { name: "ass2-child5" },
-      ],
-    },
-    {
-      name: "ass3",
-      children: [
-        { name: "ass3-child1" },
-        { name: "ass3-child2" },
-        { name: "ass3-child3" },
-        { name: "ass3-child4" },
-        { name: "ass3-child5" },
-      ],
-    },
-  ],
 };
 
 // Recursive TreeNode component with expand/collapse functionality
@@ -60,8 +23,8 @@ const TreeNode = React.memo(({ node }: { node: TreeNodeType }) => {
       </div>
       {isExpanded && node.children && (
         <div className="ml-4 border-l-2 border-neutral-300 dark:border-neutral-600 pl-2">
-          {node.children.map((child, index) => (
-            <TreeNode key={index} node={child} />
+          {node.children.map((child) => (
+            <TreeNode key={child.userId} node={child} />
           ))}
         </div>
       )}
@@ -70,6 +33,44 @@ const TreeNode = React.memo(({ node }: { node: TreeNodeType }) => {
 });
 
 export default function TreeView() {
+  const [treeData, setTreeData] = useState<TreeNodeType | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Fetch the logged-in user's tree data
+    const fetchTreeData = async () => {
+      try {
+        const userId = localStorage.getItem("userId"); // Assuming userId is stored in localStorage
+        if (!userId) {
+          setError("User not logged in.");
+          return;
+        }
+
+        const response = await fetch(`/api/users/${userId}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.error || "Failed to fetch tree data.");
+          return;
+        }
+
+        const data: TreeNodeType = await response.json();
+        setTreeData(data);
+      } catch (error) {
+        setError("An error occurred while fetching tree data.");
+      }
+    };
+
+    fetchTreeData();
+  }, []);
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
+
+  if (!treeData) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="relative h-full bg-transparent p-4">
       {/* Page Content */}
@@ -89,10 +90,7 @@ export default function TreeView() {
 
       {/* Back to Home Link */}
       <div className="absolute top-4 right-4 z-20">
-        <a
-          href="/"
-          className="text-blue-500 hover:underline cursor-pointer"
-        >
+        <a href="/" className="text-blue-500 hover:underline cursor-pointer">
           &larr; Back to Home
         </a>
       </div>

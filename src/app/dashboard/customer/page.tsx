@@ -5,7 +5,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
 import { Particles } from "@/components/magicui/particles";
-import EditProfile from "./edit-profile";
+import EditProfile from "../shared/edit-profile";
 
 export default function SidebarDemo() {
   const [activeSection, setActiveSection] = useState("edit-profile"); // Default section is Edit Profile

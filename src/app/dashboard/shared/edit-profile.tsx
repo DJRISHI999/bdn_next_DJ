@@ -9,6 +9,7 @@ export default function EditProfile() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
 
   const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -17,10 +18,44 @@ export default function EditProfile() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ profilePic, name, email, password, phoneNumber });
-    alert("Profile updated successfully!");
+
+    const token = localStorage.getItem("token"); // Assuming JWT is stored in localStorage
+    if (!token) {
+      setMessage("You are not logged in.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("phoneNumber", phoneNumber);
+    if (profilePic) {
+      formData.append("profilePicture", profilePic);
+    }
+
+    const response = await fetch("/api/users/update-profile", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        phoneNumber,
+        profilePicture: profilePic,
+      }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      setMessage("Profile updated successfully!");
+    } else {
+      setMessage(data.error || "Failed to update profile.");
+    }
   };
 
   return (
@@ -137,16 +172,11 @@ export default function EditProfile() {
             </button>
           </div>
         </form>
-      </div>
-
-      {/* Back to Home Link */}
-      <div className="absolute top-4 right-4 z-20">
-        <a
-          href="/"
-          className="text-blue-500 hover:underline cursor-pointer"
-        >
-          &larr; Back to Home
-        </a>
+        {message && (
+          <p className="mt-4 text-sm text-green-500 dark:text-green-400">
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );

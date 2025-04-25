@@ -1,15 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { IconBrandGoogle, IconBrandWindows, IconEye, IconEyeOff } from "@tabler/icons-react";
+import { IconBrandGoogle, IconBrandWindows } from "@tabler/icons-react";
 import { Particles } from "@/components/magicui/particles";
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,8 +29,8 @@ export default function SignupForm() {
     console.log("Signup form submitted successfully!");
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+  const handleAssociateSignup = () => {
+    router.push("/signup/referal_code"); // Redirect to referral code page
   };
 
   return (
@@ -70,7 +72,7 @@ export default function SignupForm() {
           {/* Mobile Number */}
           <LabelInputContainer className="mb-4">
             <Label htmlFor="mobile">Mobile Number</Label>
-            <Input id="mobile" placeholder="XXXXXXXXX" type="tel" pattern="[0-9]{10}" required/>
+            <Input id="mobile" placeholder="XXXXXXXXX" type="tel" pattern="[0-9]{10}" required />
           </LabelInputContainer>
 
           {/* Password Input */}
@@ -95,10 +97,18 @@ export default function SignupForm() {
               type="password"
               required
             />
-            {error && (
-              <p className="mt-2 text-sm text-red-500">{error}</p>
-            )}
+            {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
           </LabelInputContainer>
+
+          {/* Be an Associate Button */}
+          <button
+            className="cursor-pointer group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-gray-800 to-gray-700 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] mb-4"
+            type="button"
+            onClick={handleAssociateSignup}
+          >
+            Be an Associate &rarr;
+            <BottomGradient />
+          </button>
 
           {/* Signup Button */}
           <button
@@ -108,34 +118,34 @@ export default function SignupForm() {
             Signup &rarr;
             <BottomGradient />
           </button>
-
-          {/* Divider */}
-          <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-700 to-transparent" />
-
-          {/* Social Signup Buttons */}
-          <div className="flex flex-col space-y-4">
-            <button
-              className="cursor-pointer group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-              type="button"
-            >
-              <IconBrandWindows className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Signup with Microsoft
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className="cursor-pointer group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-              type="button"
-            >
-              <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Signup with Google
-              </span>
-              <BottomGradient />
-            </button>
-          </div>
         </form>
+
+        {/* Divider */}
+        <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-700 to-transparent" />
+
+        {/* Social Signup Buttons */}
+        <div className="flex flex-col space-y-4">
+          <button
+            className="cursor-pointer group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+            type="button"
+          >
+            <IconBrandWindows className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <span className="text-sm text-neutral-700 dark:text-neutral-300">
+              Signup with Microsoft
+            </span>
+            <BottomGradient />
+          </button>
+          <button
+            className="cursor-pointer group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+            type="button"
+          >
+            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <span className="text-sm text-neutral-700 dark:text-neutral-300">
+              Signup with Google
+            </span>
+            <BottomGradient />
+          </button>
+        </div>
       </div>
     </div>
   );
