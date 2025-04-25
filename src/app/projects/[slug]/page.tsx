@@ -24,7 +24,11 @@ const getProjects = async (): Promise<Project[]> => {
 };
 
 // **Dynamic Metadata**
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const projects = await getProjects();
   const project = projects.find((project) => project.slug === params.slug);
 
@@ -35,7 +39,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // **Project Page Component**
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
+export default async function ProjectPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const projects = await getProjects();
   const project = projects.find((project) => project.slug === params.slug);
 
