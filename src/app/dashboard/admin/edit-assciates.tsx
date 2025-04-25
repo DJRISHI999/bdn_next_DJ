@@ -71,7 +71,7 @@ export default function EditAssociates() {
         const error = await response.json();
         setMessage(error.message || "Failed to update associate.");
       }
-    } catch (error) {
+    } catch {
       setMessage("An error occurred while updating the associate.");
     }
   };

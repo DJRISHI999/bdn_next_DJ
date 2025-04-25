@@ -15,6 +15,8 @@ export default function AssociateSignupPage() {
     mobile: "",
     email: "",
   });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,19 +24,28 @@ export default function AssociateSignupPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
+    setLoading(true);
 
-    // Submit the form data
-    const response = await fetch("/api/associate-signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...formData, referralCode }),
-    });
+    try {
+      // Submit the form data
+      const response = await fetch("/api/associate-signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, referralCode }),
+      });
 
-    const data = await response.json();
-    if (data.success) {
-      alert("Signup successful!");
-    } else {
-      alert("Signup failed. Please try again.");
+      const data = await response.json();
+      if (response.ok) {
+        alert("Signup successful!");
+      } else {
+        setError(data.error || "Signup failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,6 +53,7 @@ export default function AssociateSignupPage() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4">Associate Signup</h2>
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <Label htmlFor="firstName">First Name</Label>
           <Input
@@ -51,6 +63,7 @@ export default function AssociateSignupPage() {
             onChange={handleChange}
             placeholder="Enter first name"
             className="mb-4"
+            required
           />
 
           <Label htmlFor="lastName">Last Name</Label>
@@ -61,6 +74,7 @@ export default function AssociateSignupPage() {
             onChange={handleChange}
             placeholder="Enter last name"
             className="mb-4"
+            required
           />
 
           <Label htmlFor="mobile">Mobile Number</Label>
@@ -71,6 +85,8 @@ export default function AssociateSignupPage() {
             onChange={handleChange}
             placeholder="Enter mobile number"
             className="mb-4"
+            pattern="[0-9]{10}"
+            required
           />
 
           <Label htmlFor="email">Email</Label>
@@ -81,6 +97,8 @@ export default function AssociateSignupPage() {
             onChange={handleChange}
             placeholder="Enter email"
             className="mb-4"
+            type="email"
+            required
           />
 
           <Label htmlFor="referralCode">Referral Code</Label>
@@ -93,9 +111,12 @@ export default function AssociateSignupPage() {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+            className={`bg-blue-500 text-white px-4 py-2 rounded w-full ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading}
           >
-            Signup
+            {loading ? "Signing up..." : "Signup"}
           </button>
         </form>
       </div>

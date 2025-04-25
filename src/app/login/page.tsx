@@ -4,15 +4,39 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { IconBrandGoogle, IconBrandWindows, IconEye, IconEyeOff } from "@tabler/icons-react";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { Particles } from "@/components/magicui/particles";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Login form submitted");
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login successful:", data);
+        router.push("/dashboard"); // Redirect to dashboard after successful login
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || "Invalid credentials");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("An unexpected error occurred. Please try again.");
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -40,7 +64,14 @@ export default function LoginForm() {
           {/* Email Input */}
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email Address</Label>
-            <Input id="email" placeholder="you@example.com" type="email" />
+            <Input
+              id="email"
+              placeholder="you@example.com"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </LabelInputContainer>
 
           {/* Password Input */}
@@ -50,6 +81,9 @@ export default function LoginForm() {
               id="password"
               placeholder="••••••••"
               type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <button
               type="button"
@@ -59,6 +93,8 @@ export default function LoginForm() {
               {showPassword ? <IconEyeOff size={18} /> : <IconEye size={18} />}
             </button>
           </LabelInputContainer>
+
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
           {/* Login Button */}
           <button
@@ -80,33 +116,6 @@ export default function LoginForm() {
             <a href="/signup" className="text-blue-400 hover:text-blue-500">
               Signup
             </a>
-          </div>
-
-          {/* Divider */}
-          <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-700 to-transparent" />
-
-          {/* Social Login Buttons */}
-          <div className="flex flex-col space-y-4">
-            <button
-              className="cursor-pointer group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-              type="button"
-            >
-              <IconBrandWindows className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Login with Microsoft
-              </span>
-              <BottomGradient />
-            </button>
-            <button
-              className="cursor-pointer group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-              type="button"
-            >
-              <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Login with Google
-              </span>
-              <BottomGradient />
-            </button>
           </div>
         </form>
       </div>
