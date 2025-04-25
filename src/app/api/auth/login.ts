@@ -31,8 +31,7 @@ export async function POST(request: Request) {
     );
 
     return NextResponse.json({ message: "Login successful", token });
-  } catch (error) {
-    console.error("Error during login:", error);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+  } catch {
+    return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
   }
 }

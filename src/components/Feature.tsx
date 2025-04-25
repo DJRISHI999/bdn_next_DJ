@@ -1,10 +1,12 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { IconBrandYoutubeFilled } from "@tabler/icons-react";
-import { Lens } from "./Lens"; 
-import { Particles } from "@/components/magicui/particles"; 
+import { Lens } from "./Lens";
+import { Particles } from "@/components/magicui/particles";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function FeaturesSectionDemo() {
   const features = [
@@ -45,15 +47,15 @@ export default function FeaturesSectionDemo() {
       {/* Particles Background */}
       <Particles
         className="absolute inset-0 -z-10"
-        quantity={20} 
-        color="#FFFF00" 
-        size={5} 
+        quantity={20}
+        color="#FFFF00"
+        size={5}
         vx={0.11}
       />
 
       <div className="px-8">
         <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium text-black dark:text-white font-outfit">
-          Bhoodhan's Offerings
+          Bhoodhan&apos;s Offerings
         </h4>
 
         <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300 font-barlow">
@@ -118,8 +120,8 @@ export const SkeletonOne = () => {
     <div className="relative flex py-8 px-2 gap-10 h-full">
       <div className="w-full p-5 mx-auto bg-white dark:bg-neutral-900 shadow-2xl group h-full hover:scale-105 transition-transform duration-300 rounded-md">
         <div className="flex flex-1 w-full h-full flex-col space-y-2 relative overflow-hidden">
-          <img
-            src="./images/gate.webp"
+          <Image
+            src="/images/gate.webp"
             alt="header"
             width={800}
             height={800}
@@ -135,20 +137,25 @@ export const SkeletonOne = () => {
 };
 
 export const SkeletonTwo = () => {
-  const images = [
-    "./images/banner1.webp",
-    "./images/banner3.webp",
-    "./images/banner4.webp",
-    "./images/banner1.webp",
-    "./images/banner3.webp",
-    "./images/banner4.webp",
-  ];
+  // Memoize the images array to prevent it from being recreated on every render
+  const images = useMemo(
+    () => [
+      "/images/banner1.webp",
+      "/images/banner3.webp",
+      "/images/banner4.webp",
+      "/images/banner1.webp",
+      "/images/banner3.webp",
+      "/images/banner4.webp",
+    ],
+    []
+  );
 
   const [rotations, setRotations] = useState<number[]>([]);
 
   useEffect(() => {
+    // Generate random rotations for the images
     setRotations(images.map(() => Math.random() * 20 - 10));
-  }, []);
+  }, [images]);
 
   const imageVariants = {
     whileHover: {
@@ -161,10 +168,6 @@ export const SkeletonTwo = () => {
       rotate: 0,
       zIndex: 100,
     },
-  };
-
-  const handleScrollToBanner = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -181,21 +184,15 @@ export const SkeletonTwo = () => {
             }}
             className="rounded-xl -mr-4 mt-4 p-1 bg-white dark:bg-neutral-800 dark:border-neutral-700 border border-neutral-100 shrink-0 overflow-hidden"
           >
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault(); // Prevent default anchor behavior
-                handleScrollToBanner();
-              }}
-            >
-              <img
+            <Link href="#" onClick={(e) => e.preventDefault()}>
+              <Image
                 src={image}
                 alt={`Image ${idx + 1}`}
-                width="500"
-                height="500"
+                width={500}
+                height={500}
                 className="rounded-lg h-20 w-20 md:h-40 md:w-40 object-cover shrink-0"
               />
-            </a>
+            </Link>
           </motion.div>
         ))}
       </div>
@@ -212,21 +209,15 @@ export const SkeletonTwo = () => {
             }}
             className="rounded-xl -mr-4 mt-4 p-1 bg-white dark:bg-neutral-800 dark:border-neutral-700 border border-neutral-100 shrink-0 overflow-hidden"
           >
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault(); // Prevent default anchor behavior
-                handleScrollToBanner();
-              }}
-            >
-              <img
+            <Link href="#" onClick={(e) => e.preventDefault()}>
+              <Image
                 src={image}
                 alt={`Image ${idx + 4}`}
-                width="500"
-                height="500"
+                width={500}
+                height={500}
                 className="rounded-lg h-20 w-20 md:h-40 md:w-40 object-cover shrink-0"
               />
-            </a>
+            </Link>
           </motion.div>
         ))}
       </div>
@@ -239,7 +230,7 @@ export const SkeletonTwo = () => {
 
 export const SkeletonThree = () => {
   return (
-    <a
+    <Link
       href="https://www.youtube.com/watch?v=RPa3_AD1_Vs"
       target="__blank"
       className="relative flex gap-10 h-full group/image"
@@ -247,8 +238,8 @@ export const SkeletonThree = () => {
       <div className="w-full mx-auto bg-transparent dark:bg-transparent group h-full">
         <div className="flex flex-1 w-full h-full flex-col space-y-2 relative">
           <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto" />
-          <img
-            src="./images/gate.webp"
+          <Image
+            src="/images/gate.webp"
             alt="header"
             width={800}
             height={800}
@@ -256,7 +247,7 @@ export const SkeletonThree = () => {
           />
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
@@ -266,8 +257,8 @@ export const SkeletonFour = () => {
       <div className="w-full max-w-[80vw] sm:max-w-[20rem] md:max-w-[22rem] lg:max-w-[24rem] flex flex-col items-center justify-center relative bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg">
         <div className="absolute inset-0 bg-gradient-to-b from-white dark:from-black via-transparent to-transparent opacity-50" />
         <Lens zoomFactor={1.5} lensSize={300}>
-          <img
-            src="./images/bhoodhan_card.webp"
+          <Image
+            src="/images/bhoodhan_card.webp"
             alt="Bhoodhan Card"
             className="w-full h-auto object-cover"
             width={1200}

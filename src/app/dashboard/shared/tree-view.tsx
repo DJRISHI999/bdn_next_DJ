@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 // Define the type for the tree structure
 type TreeNodeType = {
@@ -32,6 +33,9 @@ const TreeNode = React.memo(({ node }: { node: TreeNodeType }) => {
   );
 });
 
+// Add displayName to the TreeNode component
+TreeNode.displayName = "TreeNode";
+
 export default function TreeView() {
   const [treeData, setTreeData] = useState<TreeNodeType | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -55,7 +59,8 @@ export default function TreeView() {
 
         const data: TreeNodeType = await response.json();
         setTreeData(data);
-      } catch (error) {
+      } catch (fetchError) {
+        console.error("Error fetching tree data:", fetchError); // Log the error
         setError("An error occurred while fetching tree data.");
       }
     };
@@ -88,11 +93,14 @@ export default function TreeView() {
         </div>
       </div>
 
-      {/* Back to Home Link */}
+      {/* Back to Home Button */}
       <div className="absolute top-4 right-4 z-20">
-        <a href="/" className="text-blue-500 hover:underline cursor-pointer">
+        <Link
+          href="/"
+          className="text-blue-500 hover:underline cursor-pointer"
+        >
           &larr; Back to Home
-        </a>
+        </Link>
       </div>
     </div>
   );

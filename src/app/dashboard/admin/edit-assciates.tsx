@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { Particles } from "@/components/magicui/particles";
-
+import Link from "next/link";
 // Define the type for an Associate
 type Associate = {
   userId: string;
@@ -129,11 +129,14 @@ export default function EditAssociates() {
         {message && <p className="mt-4 text-green-500">{message}</p>}
       </div>
 
-      {/* Back to Home Link */}
-      <div className="absolute top-4 right-4 z-20">
-        <a href="/" className="text-blue-500 hover:underline cursor-pointer">
+       {/* Back to Home Button */}
+       <div className="absolute top-4 right-4 z-20">
+        <Link
+          href="/"
+          className="text-blue-500 hover:underline cursor-pointer"
+        >
           &larr; Back to Home
-        </a>
+        </Link>
       </div>
     </div>
   );

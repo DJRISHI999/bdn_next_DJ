@@ -35,8 +35,7 @@ export async function POST(request: Request) {
     await newUser.save();
 
     return NextResponse.json({ message: "Registration successful", user: { email, name } });
-  } catch (error) {
-    console.error("Error during registration:", error);
+  } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

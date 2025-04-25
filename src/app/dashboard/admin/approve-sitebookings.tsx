@@ -2,6 +2,7 @@
 "use client";
 
 import { Particles } from "@/components/magicui/particles";
+import Link from "next/link";
 
 export default function ApproveSiteBookings() {
   return (
@@ -30,12 +31,12 @@ export default function ApproveSiteBookings() {
 
       {/* Back to Home Button */}
       <div className="absolute top-4 right-4 z-20">
-        <a
+        <Link
           href="/"
           className="text-blue-500 hover:underline cursor-pointer"
         >
           &larr; Back to Home
-        </a>
+        </Link>
       </div>
     </div>
   );

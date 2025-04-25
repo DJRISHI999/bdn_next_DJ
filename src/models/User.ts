@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import  { Schema, model, models } from "mongoose";
 
 // Define the valid keys for commissionRates as a string literal union type
 type CommissionLevel =

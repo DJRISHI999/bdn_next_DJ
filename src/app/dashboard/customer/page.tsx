@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-
 import { Particles } from "@/components/magicui/particles";
 import EditProfile from "../shared/edit-profile";
+import Image from "next/image"; // Import Image from next/image
 
 export default function SidebarDemo() {
   const [activeSection, setActiveSection] = useState("edit-profile"); // Default section is Edit Profile
@@ -22,10 +22,12 @@ export default function SidebarDemo() {
       label: "Profile",
       href: "#edit-profile",
       icon: (
-        <img
+        <Image
           src="https://assets.aceternity.com/manu.png" // Replace with the actual profile photo URL
           className="h-7 w-7 shrink-0 rounded-full"
           alt="Profile"
+          width={28} // Specify width
+          height={28} // Specify height
         />
       ),
       section: "edit-profile",

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Particles } from "@/components/magicui/particles";
+import Image from "next/image"; // Import Image from next/image
 
 export default function EditProfile() {
   const [profilePic, setProfilePic] = useState<string | null>(null);
@@ -27,19 +28,11 @@ export default function EditProfile() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("phoneNumber", phoneNumber);
-    if (profilePic) {
-      formData.append("profilePicture", profilePic);
-    }
-
     const response = await fetch("/api/users/update-profile", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
@@ -87,10 +80,12 @@ export default function EditProfile() {
             </label>
             <div className="mt-2 flex items-center space-x-4">
               {profilePic ? (
-                <img
+                <Image
                   src={profilePic}
                   alt="Profile"
                   className="h-16 w-16 rounded-full object-cover"
+                  width={64} // Specify width
+                  height={64} // Specify height
                 />
               ) : (
                 <div className="h-16 w-16 rounded-full bg-gray-200 dark:bg-neutral-700 flex items-center justify-center text-neutral-500">

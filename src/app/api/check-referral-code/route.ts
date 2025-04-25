@@ -19,7 +19,7 @@ export async function GET(request: Request) {
     } else {
       return NextResponse.json({ exists: false });
     }
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

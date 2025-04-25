@@ -73,34 +73,32 @@ export default function Footer() {
             </div>
           </div>
 
-         
-
           {/* Social Media Links */}
           <div className="flex justify-center space-x-4 mt-6">
-            <a
+            <Link
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500"
             >
               <FontAwesomeIcon icon={faFacebookF} />
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-pink-500"
             >
               <FontAwesomeIcon icon={faInstagram} />
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-600"
             >
               <FontAwesomeIcon icon={faLinkedinIn} />
-            </a>
+            </Link>
           </div>
 
           {/* Bottom Section: Contact Info and Copyright */}
@@ -110,19 +108,19 @@ export default function Footer() {
             </p>
             <p>
               <strong>Email:</strong>{" "}
-              <a
+              <Link
                 href="mailto:bhoodhaninfratech@gmail.com"
                 className="text-green-400 hover:underline"
               >
                 bhoodhaninfratech@gmail.com
-              </a>{" "}
+              </Link>{" "}
               | <strong>Phone:</strong>{" "}
-              <a
+              <Link
                 href="tel:+911205263054"
                 className="text-green-400 hover:underline"
               >
                 +91 120 526 3054
-              </a>
+              </Link>
             </p>
             <p className="mt-4">
               © {new Date().getFullYear()} Bhoodhan Infratech Pvt. Ltd. All rights reserved.

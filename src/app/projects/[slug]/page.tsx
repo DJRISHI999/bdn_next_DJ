@@ -84,25 +84,25 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         {/* Content */}
         <ReactMarkdown
           components={{
-            h1: ({ node, ...props }) => (
+            h1: (props) => (
               <h1 className="text-3xl font-bold text-white mb-4 font-outfit" {...props} />
             ),
-            h2: ({ node, ...props }) => (
+            h2: (props) => (
               <h2 className="text-2xl font-semibold text-white mb-3 font-outfit" {...props} />
             ),
-            p: ({ node, ...props }) => (
+            p: (props) => (
               <p className="text-gray-300 leading-relaxed mb-4 font-inter" {...props} />
             ),
-            ul: ({ node, ...props }) => (
+            ul: (props) => (
               <ul className="list-disc list-inside text-gray-300 mb-4 font-inter" {...props} />
             ),
-            ol: ({ node, ...props }) => (
+            ol: (props) => (
               <ol className="list-decimal list-inside text-gray-300 mb-4 font-inter" {...props} />
             ),
-            li: ({ node, ...props }) => (
+            li: (props) => (
               <li className="mb-2 text-gray-300 font-inter" {...props} />
             ),
-            strong: ({ node, ...props }) => (
+            strong: (props) => (
               <strong className="font-bold text-white font-outfit" {...props} />
             ),
           }}

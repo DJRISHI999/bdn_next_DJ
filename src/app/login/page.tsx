@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { Particles } from "@/components/magicui/particles";
 import { useRouter } from "next/navigation";
+import Link from "next/link"; // Import Link from next/link
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -107,15 +108,15 @@ export default function LoginForm() {
 
           {/* Links */}
           <div className="mt-4 flex justify-between text-sm">
-            <a
+            <Link
               href="/forgot-password"
               className="text-blue-400 hover:text-blue-500"
             >
               Forgot Password?
-            </a>
-            <a href="/signup" className="text-blue-400 hover:text-blue-500">
+            </Link>
+            <Link href="/signup" className="text-blue-400 hover:text-blue-500">
               Signup
-            </a>
+            </Link>
           </div>
         </form>
       </div>

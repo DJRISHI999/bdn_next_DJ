@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { IconArrowLeft, IconSettings, IconTree } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-
 import { Particles } from "@/components/magicui/particles";
 import EditProfile from "../shared/edit-profile";
 import BookSiteVisit from "./book-site-visit";
 import TreeView from "../shared/tree-view";
+import Image from "next/image"; // Import Image from next/image
 
 export default function SidebarDemo() {
   const [activeSection, setActiveSection] = useState("tree-view"); // Default section is Tree View
@@ -24,10 +24,12 @@ export default function SidebarDemo() {
       label: "Profile",
       href: "#edit-profile",
       icon: (
-        <img
+        <Image
           src="https://assets.aceternity.com/manu.png" // Replace with the actual profile photo URL
           className="h-7 w-7 shrink-0 rounded-full"
           alt="Profile"
+          width={28} // Specify width
+          height={28} // Specify height
         />
       ),
       section: "edit-profile",
@@ -88,8 +90,6 @@ export default function SidebarDemo() {
           </SidebarBody>
         </Sidebar>
         <div className="flex-1 p-4">
-        
-
           {/* Render Active Section */}
           {activeSection === "edit-profile" && <EditProfile />}
           {activeSection === "book-site-visit" && <BookSiteVisit />}

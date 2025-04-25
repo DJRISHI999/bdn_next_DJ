@@ -1,6 +1,6 @@
 import React from "react";
 import ExpandableCardDemo from "./Expandablecard"; 
-import { Particles } from "./magicui/particles";
+
 
 export default function Properties() {
   return (
