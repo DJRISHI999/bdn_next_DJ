@@ -14,7 +14,10 @@ const eslintConfig = [
     extends: ["next/core-web-vitals", "next/typescript"],
     rules: {
       // Turn off or relax specific rules
-      "@typescript-eslint/no-unused-vars": "warn", // Change unused vars to a warning
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { args: "none" }, // Allow unused arguments
+      ],
       "react-hooks/exhaustive-deps": "off", // Disable missing dependencies rule
       "react/no-unescaped-entities": "off", // Disable unescaped entities rule
       "@typescript-eslint/no-explicit-any": "off", // Allow usage of 'any' type

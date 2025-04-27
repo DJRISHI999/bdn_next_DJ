@@ -23,21 +23,8 @@ const getProjects = async (): Promise<Project[]> => {
   return JSON.parse(jsonData);
 };
 
-// **Generate Static Params**
-export async function generateStaticParams() {
-  const projects = await getProjects();
-
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
 // **Dynamic Metadata**
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const projects = await getProjects();
   const project = projects.find((project) => project.slug === params.slug);
 
@@ -48,21 +35,12 @@ export async function generateMetadata({
 }
 
 // **Project Page Component**
-export default async function ProjectPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const projects = await getProjects();
   const project = projects.find((project) => project.slug === params.slug);
 
   if (!project) {
-    return (
-      <div className="text-center text-gray-400 mt-20">
-        <h1 className="text-3xl font-bold">Project Not Found</h1>
-        <p className="mt-4">The project you are looking for does not exist or has been removed.</p>
-      </div>
-    );
+    return <div className="text-center text-gray-400 mt-20">Project not found.</div>;
   }
 
   return (
@@ -86,7 +64,6 @@ export default async function ProjectPage({
           className="w-full rounded-lg mb-8"
           width={800}
           height={600}
-          priority
         />
         {project.image2 && (
           <Image
@@ -101,25 +78,25 @@ export default async function ProjectPage({
         {/* Content */}
         <ReactMarkdown
           components={{
-            h1: (props) => (
+            h1: ({ node, ...props }) => (
               <h1 className="text-3xl font-bold text-white mb-4 font-outfit" {...props} />
             ),
-            h2: (props) => (
+            h2: ({ node, ...props }) => (
               <h2 className="text-2xl font-semibold text-white mb-3 font-outfit" {...props} />
             ),
-            p: (props) => (
+            p: ({ node, ...props }) => (
               <p className="text-gray-300 leading-relaxed mb-4 font-inter" {...props} />
             ),
-            ul: (props) => (
+            ul: ({ node, ...props }) => (
               <ul className="list-disc list-inside text-gray-300 mb-4 font-inter" {...props} />
             ),
-            ol: (props) => (
+            ol: ({ node, ...props }) => (
               <ol className="list-decimal list-inside text-gray-300 mb-4 font-inter" {...props} />
             ),
-            li: (props) => (
+            li: ({ node, ...props }) => (
               <li className="mb-2 text-gray-300 font-inter" {...props} />
             ),
-            strong: (props) => (
+            strong: ({ node, ...props }) => (
               <strong className="font-bold text-white font-outfit" {...props} />
             ),
           }}
