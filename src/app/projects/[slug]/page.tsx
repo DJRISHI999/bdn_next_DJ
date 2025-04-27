@@ -23,6 +23,15 @@ const getProjects = async (): Promise<Project[]> => {
   return JSON.parse(jsonData);
 };
 
+// **Generate Static Params**
+export async function generateStaticParams() {
+  const projects = await getProjects();
+
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
 // **Dynamic Metadata**
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const projects = await getProjects();
@@ -40,7 +49,12 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const project = projects.find((project) => project.slug === params.slug);
 
   if (!project) {
-    return <div className="text-center text-gray-400 mt-20">Project not found.</div>;
+    return (
+      <div className="text-center text-gray-400 mt-20">
+        <h1 className="text-3xl font-bold">Project Not Found</h1>
+        <p className="mt-4">The project you are looking for does not exist or has been removed.</p>
+      </div>
+    );
   }
 
   return (
@@ -64,6 +78,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
           className="w-full rounded-lg mb-8"
           width={800}
           height={600}
+          priority
         />
         {project.image2 && (
           <Image
