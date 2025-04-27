@@ -3,7 +3,6 @@ import { promises as fs } from "fs";
 import path from "path";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import { usePathname } from "next/navigation";
 
 // Project Interface
 interface Project {
@@ -24,13 +23,18 @@ const getProjects = async (): Promise<Project[]> => {
   return JSON.parse(jsonData);
 };
 
-// **Dynamic Metadata**
-export async function generateMetadata(): Promise<Metadata> {
+// **Generate Static Params**
+export async function generateStaticParams() {
   const projects = await getProjects();
-  const pathname = usePathname();
-  const slug = pathname?.split("/").pop(); // Extract slug from the URL
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
 
-  const project = projects.find((project) => project.slug === slug);
+// **Dynamic Metadata**
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const projects = await getProjects();
+  const project = projects.find((project) => project.slug === params.slug);
 
   return {
     title: project ? `${project.heading} - Bhoodhan Infratech` : "Project Not Found",
@@ -39,12 +43,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // **Project Page Component**
-export default async function ProjectPage() {
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const projects = await getProjects();
-  const pathname = usePathname();
-  const slug = pathname?.split("/").pop(); // Extract slug from the URL
-
-  const project = projects.find((project) => project.slug === slug);
+  const project = projects.find((project) => project.slug === params.slug);
 
   if (!project) {
     return (
