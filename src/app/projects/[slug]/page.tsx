@@ -23,6 +23,15 @@ const getProjects = async (): Promise<Project[]> => {
   return JSON.parse(jsonData);
 };
 
+// **Generate Static Params**
+export async function generateStaticParams() {
+  const projects = await getProjects();
+
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
 // **Dynamic Metadata**
 export async function generateMetadata({
   params,
