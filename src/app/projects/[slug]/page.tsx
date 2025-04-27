@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
+import { notFound } from "next/navigation";
 
 // Project Interface
 interface Project {
@@ -16,11 +17,16 @@ interface Project {
   meta: string;
 }
 
+let cachedProjects: Project[] | null = null;
+
 // Function to Load Project Data
 const getProjects = async (): Promise<Project[]> => {
+  if (cachedProjects) return cachedProjects;
+
   const filePath = path.join(process.cwd(), "public", "projects.json");
   const jsonData = await fs.readFile(filePath, "utf-8");
-  return JSON.parse(jsonData);
+  cachedProjects = JSON.parse(jsonData) as Project[]; // Ensure the parsed data is of type Project[]
+  return cachedProjects;
 };
 
 // **Generate Static Params**
@@ -36,9 +42,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const projects = await getProjects();
   const project = projects.find((project) => project.slug === params.slug);
 
+  if (!project) {
+    return {
+      title: "Project Not Found",
+      description: "This project does not exist.",
+    };
+  }
+
   return {
-    title: project ? `${project.heading} - Bhoodhan Infratech` : "Project Not Found",
-    description: project ? project.text.substring(0, 150) : "This project does not exist.",
+    title: `${project.heading} - Bhoodhan Infratech`,
+    description: project.text.substring(0, 150),
+    openGraph: {
+      title: project.heading,
+      description: project.text.substring(0, 150),
+      images: project.image1 ? [{ url: project.image1 }] : [],
+    },
   };
 }
 
@@ -48,12 +66,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const project = projects.find((project) => project.slug === params.slug);
 
   if (!project) {
-    return (
-      <div className="text-center text-gray-400 mt-20">
-        <h1 className="text-3xl font-bold">Project Not Found</h1>
-        <p className="mt-4">The project you are looking for does not exist or has been removed.</p>
-      </div>
-    );
+    notFound();
   }
 
   return (
