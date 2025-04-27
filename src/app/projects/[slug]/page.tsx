@@ -17,16 +17,11 @@ interface Project {
   meta: string;
 }
 
-let cachedProjects: Project[] | null = null;
-
 // Function to Load Project Data
 const getProjects = async (): Promise<Project[]> => {
-  if (cachedProjects) return cachedProjects;
-
   const filePath = path.join(process.cwd(), "public", "projects.json");
   const jsonData = await fs.readFile(filePath, "utf-8");
-  cachedProjects = JSON.parse(jsonData) as Project[]; // Ensure the parsed data is of type Project[]
-  return cachedProjects;
+  return JSON.parse(jsonData);
 };
 
 // **Generate Static Params**
