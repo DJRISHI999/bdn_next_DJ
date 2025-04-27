@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 import crypto from "crypto";
 
-const rateLimiter = new RateLimiterMemory({
+ const rateLimiter = new RateLimiterMemory({
   points: 5,
   duration: 60 * 5,
 });
