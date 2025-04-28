@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 // Force dynamic rendering to avoid build-time errors
 export const dynamic = "force-dynamic";
 
-export default function AssociateSignupPage() {
+function SignupForm() {
   const searchParams = useSearchParams();
   const referralCode = searchParams.get("referralCode"); // Get referral code from query params
 
@@ -118,5 +118,13 @@ export default function AssociateSignupPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function AssociateSignupPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignupForm />
+    </Suspense>
   );
 }
