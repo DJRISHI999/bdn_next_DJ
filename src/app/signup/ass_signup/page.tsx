@@ -116,14 +116,15 @@ function SignupForm() {
             />
           </LabelInputContainer>
 
-          <Label htmlFor="referralCode">Referral Code</Label>
-          <Input
-            id="referralCode"
-            name="referralCode"
-            value={referralCode || ""}
-            readOnly
-            className="mb-4 bg-gray-200"
-          />
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="referralCode">Referral Code</Label>
+            <Input
+              id="referralCode"
+              name="referralCode"
+              value={referralCode || ""}
+              readOnly
+            />
+          </LabelInputContainer>
 
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
