@@ -12,7 +12,7 @@ type TreeNodeType = {
 
 // Recursive TreeNode component with expand/collapse functionality
 const TreeNode = React.memo(({ node }: { node: TreeNodeType }) => {
-  const [isExpanded, setIsExpanded] = React.useState(true);
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
     <div className="ml-4">

@@ -1,4 +1,5 @@
 onlyBuiltDependencies:
+  - esbuild
   - react-tsparticles
   - sharp
   - tsparticles-engine

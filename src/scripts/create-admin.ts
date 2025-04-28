@@ -1,6 +1,27 @@
-import { connectToDatabase } from "@/lib/db";
-import { User } from "@/models/User";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
+import { User } from "@/models/User";
+
+dotenv.config(); // Load environment variables from .env file
+
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+  throw new Error("Please define the MONGO_URI environment variable in your .env file");
+}
+
+export const connectToDatabase = async () => {
+  if (mongoose.connection.readyState === 0) {
+    try {
+      await mongoose.connect(MONGO_URI);
+      console.log("Connected to MongoDB");
+    } catch (error) {
+      console.error("Error connecting to MongoDB:", error);
+      throw new Error("Failed to connect to MongoDB");
+    }
+  }
+};
 
 async function createAdmin() {
   try {
