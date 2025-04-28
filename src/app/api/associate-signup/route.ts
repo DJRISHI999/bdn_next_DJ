@@ -17,8 +17,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if the referral code is valid
-    const referrer = await User.findOne({ referralCode });
+    // Check if the referral code matches a userId
+    const referrer = await User.findOne({ userId: referralCode });
     if (!referrer) {
       return NextResponse.json(
         { error: "Invalid referral code." },

@@ -58,7 +58,7 @@ const UserSchema = new Schema({
   phoneNumber: { type: String, default: null }, // Phone number of the user
   commission: { type: Number, default: 500 }, // Commission earned by the user
   level: { type: String, default: "BEGINNER" }, // User level (e.g., BEGINNER, INTERMEDIATE, EXPERT)
-  referralCode: { type: String, default: null }, // Referral code used during signup
+  referralCode: { type: String, default: null, required: false }, // Referral code used during signup
 });
 
 // Pre-save hook to generate sequential userId and set defaults for associates
@@ -80,6 +80,9 @@ UserSchema.pre("save", async function (next) {
     const newAssociateId = `BDNAS${String(parseInt(lastAssociateId.slice(6)) + 1).padStart(3, "0")}`;
     this.userId = newAssociateId;
 
+    // Set referralCode to the same value as userId
+    this.referralCode = this.userId;
+
     // Set parentId if referralCode is provided
     if (this.referralCode) {
       const parent = await User.findOne({ userId: this.referralCode });
@@ -100,6 +103,9 @@ UserSchema.pre("save", async function (next) {
 
     // Customers are free from parent-child relationships
     this.parentId = null;
+
+    // Ensure referralCode is null for customers
+    this.referralCode = null;
   }
 
   next();
