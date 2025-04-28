@@ -88,7 +88,7 @@ const Projects = () => {
           )
           .map((project, index) => (
             <Link key={index} href={`/projects/${project.slug}`} passHref>
-              <div className="cursor-pointer bg-[#2a2a2a] rounded-lg overflow-hidden shadow-lg group bg-black">
+              <div className="cursor-pointer rounded-lg overflow-hidden shadow-lg group bg-black">
                 {/* Image Section */}
                 <div className="relative">
                   <Image
