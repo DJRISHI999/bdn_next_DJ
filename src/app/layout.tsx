@@ -2,8 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import LoggedInNavbar from "@/components/ui/logged-in-navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 export default function RootLayout({
@@ -13,7 +13,10 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  // Exclude Navbar and Footer for admin dashboard
+  // Check if the user is logged in
+  const isLoggedIn = typeof window !== "undefined" && localStorage.getItem("token");
+
+  // Exclude Navbar and Footer for specific pages
   const isDashboard =
     pathname?.startsWith("/dashboard/customer") ||
     pathname?.startsWith("/dashboard/admin") ||
@@ -25,13 +28,10 @@ export default function RootLayout({
     pathname === "/signup/referal_code" ||
     pathname === "/signup/ass_signup";
 
-  
-    const isLoggedIn = typeof window !== "undefined" && localStorage.getItem("token");
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-         
-         {isLoggedIn ? (
+        {isLoggedIn ? (
           <LoggedInNavbar />
         ) : (
           !isDashboard && !isLoginPage && !isSignupPage && <Navbar />

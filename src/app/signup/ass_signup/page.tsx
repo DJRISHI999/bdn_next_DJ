@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 function SignupForm() {
   const searchParams = useSearchParams();
   const referralCode = searchParams.get("referralCode"); // Get referral code from query params
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -54,8 +55,8 @@ function SignupForm() {
         return;
       }
 
-      const data = await response.json();
-      alert(data.message || "Signup successful!");
+      // Redirect to the login page after successful signup
+      router.push("/login");
     } catch (err) {
       console.error("Signup error:", err);
       setError("An unexpected error occurred. Please try again.");

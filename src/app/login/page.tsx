@@ -18,6 +18,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -28,11 +29,16 @@ export default function LoginForm() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Login successful:", data);
-        router.push("/dashboard"); // Redirect to dashboard after successful login
+
+        // Store the JWT token in localStorage
+        localStorage.setItem("token", data.token);
+
+        // Redirect to the home page
+        const router = useRouter();
+        router.push("/");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Invalid credentials");
+        setError(errorData.error || "Invalid credentials");
       }
     } catch (err) {
       console.error("Login error:", err);
