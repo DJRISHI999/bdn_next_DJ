@@ -1,9 +1,8 @@
 import { Metadata } from "next";
 import { promises as fs } from "fs";
-import path from "path";
 import Image from "next/image";
+import path from "path";
 import ReactMarkdown from "react-markdown";
-import { notFound } from "next/navigation";
 
 // Project Interface
 interface Project {
@@ -24,34 +23,15 @@ const getProjects = async (): Promise<Project[]> => {
   return JSON.parse(jsonData);
 };
 
-// **Generate Static Params**
-export async function generateStaticParams() {
-  const projects = await getProjects();
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
 // **Dynamic Metadata**
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+
   const projects = await getProjects();
   const project = projects.find((project) => project.slug === params.slug);
 
-  if (!project) {
-    return {
-      title: "Project Not Found",
-      description: "This project does not exist.",
-    };
-  }
-
   return {
-    title: `${project.heading} - Bhoodhan Infratech`,
-    description: project.text.substring(0, 150),
-    openGraph: {
-      title: project.heading,
-      description: project.text.substring(0, 150),
-      images: project.image1 ? [{ url: project.image1 }] : [],
-    },
+    title: project ? `${project.heading} - Bhoodhan Infratech` : "Project Not Found",
+    description: project ? project.text.substring(0, 150) : "This project does not exist.",
   };
 }
 
@@ -61,7 +41,12 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const project = projects.find((project) => project.slug === params.slug);
 
   if (!project) {
-    notFound();
+    return (
+      <div className="text-center text-gray-400 mt-20">
+        <h1 className="text-3xl font-bold">Project Not Found</h1>
+        <p className="mt-4">The project you are looking for does not exist or has been removed.</p>
+      </div>
+    );
   }
 
   return (
@@ -100,25 +85,25 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         {/* Content */}
         <ReactMarkdown
           components={{
-            h1: ({ node, ...props }) => (
+            h1: (props) => (
               <h1 className="text-3xl font-bold text-white mb-4 font-outfit" {...props} />
             ),
-            h2: ({ node, ...props }) => (
+            h2: (props) => (
               <h2 className="text-2xl font-semibold text-white mb-3 font-outfit" {...props} />
             ),
-            p: ({ node, ...props }) => (
+            p: (props) => (
               <p className="text-gray-300 leading-relaxed mb-4 font-inter" {...props} />
             ),
-            ul: ({ node, ...props }) => (
+            ul: (props) => (
               <ul className="list-disc list-inside text-gray-300 mb-4 font-inter" {...props} />
             ),
-            ol: ({ node, ...props }) => (
+            ol: (props) => (
               <ol className="list-decimal list-inside text-gray-300 mb-4 font-inter" {...props} />
             ),
-            li: ({ node, ...props }) => (
+            li: (props) => (
               <li className="mb-2 text-gray-300 font-inter" {...props} />
             ),
-            strong: ({ node, ...props }) => (
+            strong: (props) => (
               <strong className="font-bold text-white font-outfit" {...props} />
             ),
           }}
