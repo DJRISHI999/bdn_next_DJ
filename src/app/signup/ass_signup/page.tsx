@@ -76,7 +76,7 @@ export default function AssociateSignupPage() {
               className="mb-4"
               required
             />
-            <Label htmlFor="mobile">Mobile Number</Label>
+            <Label htmlFor="mobile">Mobile</Label>
             <Input
               id="mobile"
               name="mobile"
@@ -84,7 +84,6 @@ export default function AssociateSignupPage() {
               onChange={handleChange}
               placeholder="Enter mobile number"
               className="mb-4"
-              pattern="[0-9]{10}"
               required
             />
             <Label htmlFor="email">Email</Label>
@@ -95,12 +94,12 @@ export default function AssociateSignupPage() {
               onChange={handleChange}
               placeholder="Enter email"
               className="mb-4"
-              type="email"
               required
             />
             <Label htmlFor="referralCode">Referral Code</Label>
             <Input
               id="referralCode"
+              name="referralCode"
               value={referralCode || ""}
               readOnly
               className="mb-4 bg-gray-200"
