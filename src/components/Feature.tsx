@@ -170,6 +170,11 @@ export const SkeletonTwo = () => {
     },
   };
 
+  const handleImageClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault(); // Prevent default link behavior
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top of the page
+  };
+
   return (
     <div className="relative flex flex-col items-start p-8 gap-10 h-full overflow-hidden">
       <div className="flex flex-row -ml-20">
@@ -184,7 +189,7 @@ export const SkeletonTwo = () => {
             }}
             className="rounded-xl -mr-4 mt-4 p-1 bg-white dark:bg-neutral-800 dark:border-neutral-700 border border-neutral-100 shrink-0 overflow-hidden"
           >
-            <Link href="#" onClick={(e) => e.preventDefault()}>
+            <Link href="#" onClick={handleImageClick}>
               <Image
                 src={image}
                 alt={`Image ${idx + 1}`}
@@ -209,7 +214,7 @@ export const SkeletonTwo = () => {
             }}
             className="rounded-xl -mr-4 mt-4 p-1 bg-white dark:bg-neutral-800 dark:border-neutral-700 border border-neutral-100 shrink-0 overflow-hidden"
           >
-            <Link href="#" onClick={(e) => e.preventDefault()}>
+            <Link href="#" onClick={handleImageClick}>
               <Image
                 src={image}
                 alt={`Image ${idx + 4}`}
