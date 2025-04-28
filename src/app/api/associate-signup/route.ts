@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db";
 import { User } from "@/models/User";
+import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   try {
     await connectToDatabase();
 
-    const { firstName, lastName, mobile, email, referralCode } = await request.json();
+    const { firstName, lastName, mobile, email, referralCode, password } = await request.json();
 
     // Validate input
-    if (!firstName || !lastName || !mobile || !email || !referralCode) {
+    if (!firstName || !lastName || !mobile || !email || !referralCode || !password) {
       return NextResponse.json({ error: "All fields are required." }, { status: 400 });
     }
 
@@ -19,11 +20,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid referral code." }, { status: 400 });
     }
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // Create the new associate
     const newUser = new User({
       name: `${firstName} ${lastName}`, // Combine firstName + lastName into name
       email,
-      password: "defaultpassword", // Dummy password (can be reset later)
+      password: hashedPassword, // Store the hashed password
       role: "associate", // Set role to "associate"
       phoneNumber: mobile, // Map mobile to phoneNumber
       referralCode,

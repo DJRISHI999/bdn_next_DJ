@@ -18,6 +18,8 @@ function SignupForm() {
     lastName: "",
     mobile: "",
     email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -30,6 +32,14 @@ function SignupForm() {
     e.preventDefault();
     setError(null);
     setLoading(true);
+
+    const { password, confirmPassword } = formData;
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch("/api/associate-signup", {
@@ -111,6 +121,32 @@ function SignupForm() {
               placeholder="xyz@gmail.com"
               type="email"
               value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </LabelInputContainer>
+
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </LabelInputContainer>
+
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="••••••••"
+              type="password"
+              value={formData.confirmPassword}
               onChange={handleChange}
               required
             />
