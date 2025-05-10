@@ -3,10 +3,18 @@
     "date": "March 29, 2025",
     "type": "Residential",
     "heading": "Avadh Enclave",
-    "image1": "/images/gate.webp",
-    "image2": "/images/avadh-enclave-2.webp",
-    "image3": "/images/avadh-enclave-3.webp",
-    "video": "/videos/avadh-enclave.mp4",
+    "content": [
+      "Welcome to Avadh Enclave, a luxurious residential project.",
+      "Explore the modern amenities and serene environment.",
+      "A closer look at the beautiful landscaping."
+    ],
+    "images": [
+      "/images/gate.webp",
+      "/images/avadh2.webp",
+      "/images/avadh4.webp"
+    ],
+    "video": "https://youtube.com/shorts/OM3UXELeW04?si=hIFV8SynGlRX7YNh",
+    "thumbnail": "/images/avadh3.webp",
     "text": "## Avadh Enclave\n\nAvadh Enclave is a luxurious yet affordable housing project located near Jewar Airport. It offers modern amenities and a serene environment, making it the perfect choice for families and professionals alike.",
     "slug": "avadh-enclave",
     "meta": "Affordable Housing, Jewar, Real Estate"
@@ -14,37 +22,53 @@
   {
     "date": "March 20, 2025",
     "type": "Commercial",
-    "heading": "Green Valley",
-    "image1": "/images/green-valley-1.webp",
-    "image2": "/images/green-valley-2.webp",
-    "image3": "/images/green-valley-3.webp",
-    "video": "/videos/green-valley.mp4",
-    "text": "## Green Valley\n\nGreen Valley is a premium commercial project located in Noida. It features state-of-the-art office spaces, retail outlets, and recreational areas, making it an ideal destination for businesses and shoppers.",
-    "slug": "green-valley",
-    "meta": "Commercial, Noida, Real Estate"
+    "heading": "Drona Residency",
+    "content": [
+      "Drona Residency offers premium commercial spaces.",
+      "State-of-the-art office spaces and retail outlets."
+    ],
+    "images": [
+      "/images/drona_residency.webp",
+      "/images/drona_residency2.webp"
+    ],
+    "video": "https://youtube.com/shorts/M4sTwnWq0_A?si=FRA_SNLAH4nul8B7",
+    "thumbnail": "/images/drona-residency.webp",
+    "text": "## Drona Residency\n\nDrona Residency is a premium commercial project located in Noida. It features state-of-the-art office spaces, retail outlets, and recreational areas, making it an ideal destination for businesses and shoppers.",
+    "slug": "drona-residency",
+    "meta": "Commercial, Dankaur,G.B.Nagar"
   },
   {
     "date": "March 10, 2025",
     "type": "Residential",
-    "heading": "Skyline Heights",
-    "image1": "/images/skyline-heights-1.webp",
-    "image2": "/images/skyline-heights-2.webp",
-    "image3": "/images/skyline-heights-3.webp",
-    "video": "/videos/skyline-heights.mp4",
-    "text": "## Skyline Heights\n\nSkyline Heights offers premium high-rise apartments in Gurgaon with breathtaking views and modern amenities. It is designed for those who seek luxury and convenience in one place.",
-    "slug": "skyline-heights",
-    "meta": "Luxury Apartments, Gurgaon, Real Estate"
+    "heading": "Green Villa 1",
+    "images": [
+      "/images/green-villa1.webp",
+      "/images/green-villa2.webp",
+      "/images/green-villa3.webp",
+      "/images/green-villa4.webp",
+      "/images/green-villa5.webp"
+    ],
+    "video": "https://youtube.com/shorts/YVnx3ntEnx4?si=CxA0wH0iMnZbV-NC",
+    "thumbnail": "/images/green-villa1.webp",
+    "text": "## Green Villa 1\n\nGreen Villa 1 is a luxurious residential project located in Noida Extension. It offers spacious villas with modern amenities and beautiful landscaping, providing a perfect blend of comfort and elegance.",
+    "slug": "green-villa-1",
+    "meta": "Luxury Villas, Noida Extension, Real Estate"
   },
   {
     "date": "March 5, 2025",
     "type": "Residential",
-    "heading": "Palm Residency",
-    "image1": "/images/palm-residency-1.webp",
-    "image2": "/images/palm-residency-2.webp",
-    "image3": "/images/palm-residency-3.webp",
-    "video": "/videos/palm-residency.mp4",
-    "text": "## Palm Residency\n\nPalm Residency offers affordable villas surrounded by lush greenery in Faridabad. It is the perfect choice for families looking for a peaceful and eco-friendly living environment.",
-    "slug": "palm-residency",
-    "meta": "Affordable Villas, Faridabad, Real Estate"
+    "heading": "Golden City",
+    "images": [
+      "/images/golden-city-1.webp",
+      "/images/golden-city-2.webp",
+      "/images/palm-residency-3.webp",
+      "/images/palm-residency-4.webp",
+      "/images/palm-residency-5.webp"
+    ],
+    "video": "https://youtube.com/shorts/fcBwJdlFe1I?si=rJDOorXgdYZDjcOs",
+    "thumbnail": "/images/golden-city-1.webp",
+    "text": "## Golden City\n\nGolden City is a premium residential project located in Badalpur Gautam Buddha Nagar. It features modern apartments with top-notch amenities and a vibrant community, making it an ideal place for families and individuals.",
+    "slug": "golden-city",
+    "meta": "Premium Apartments, Badalpur, Real Estate"
   }
 ]

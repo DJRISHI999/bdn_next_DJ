@@ -26,6 +26,15 @@ const nextConfig: NextConfig = {
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASS: process.env.EMAIL_PASS,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**", // Allow all paths under this hostname
+      },
+    ],
+  },
 };
 
 export default nextConfig;

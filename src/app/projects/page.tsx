@@ -15,28 +15,29 @@ const realEstateProjects = [
     description: "Affordable housing project near Jewar Airport.",
   },
   {
-    title: "Green Valley",
-    location: "Noida, Uttar Pradesh",
+    title: "Drona Residency",
+    location: "Dankaur, Uttar Pradesh",
     date: "March 20, 2025",
-    slug: "green-valley",
-    image: "/images/green-valley.webp",
-    description: "Luxury apartments with modern amenities in Noida.",
+    slug: "drona-residency",
+    image: "/images/drona_residency.webp",
+    description: "Premium residential project with modern amenities.",
+      
   },
   {
-    title: "Skyline Heights",
-    location: "Gurgaon, Haryana",
+    title: "Golden City",
+    location: "Badalpur, Uttar Pradesh",
     date: "March 10, 2025",
-    slug: "skyline-heights",
+    slug: "golden-city",
     image: "/images/skyline-heights.webp",
-    description: "Premium high-rise apartments in the heart of Gurgaon.",
+    description: "Luxurious high-rise apartments with breathtaking views.",
   },
   {
-    title: "Palm Residency",
-    location: "Faridabad, Haryana",
-    date: "March 5, 2025",
-    slug: "palm-residency",
+    title: "Green Villa 1",
+    location: "Noida Extension, Uttar Pradesh",
+    date: "May 5, 2025",
+    slug: "Green Villa 1",
     image: "/images/palm-residency.webp",
-    description: "Affordable villas with lush green surroundings.",
+    description: "Spacious villas with modern architecture and amenities.",
   },
 ];
 
@@ -62,7 +63,7 @@ const Projects = () => {
 
         {/* Location Filter */}
         <div className="flex space-x-6 mt-4">
-          {["All", "Jewar", "Noida", "Gurgaon", "Faridabad"].map((location) => (
+          {["All", "Jewar", "Noida","Dankaur", "Badalpur"].map((location) => (
             <button
               key={location}
               onClick={() => setSelectedLocation(location)}

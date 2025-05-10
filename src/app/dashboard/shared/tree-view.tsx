@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext"; // Import AuthContext
 
 // Define the type for the tree structure
 type TreeNodeType = {
@@ -10,7 +11,6 @@ type TreeNodeType = {
   children?: TreeNodeType[];
 };
 
-// Recursive TreeNode component with expand/collapse functionality
 const TreeNode = React.memo(({ node }: { node: TreeNodeType }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -33,31 +33,44 @@ const TreeNode = React.memo(({ node }: { node: TreeNodeType }) => {
   );
 });
 
-// Add displayName to the TreeNode component
 TreeNode.displayName = "TreeNode";
 
 export default function TreeView() {
+  const { user } = useAuth(); // Retrieve user from AuthContext
   const [treeData, setTreeData] = useState<TreeNodeType | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch the logged-in user's tree data
     const fetchTreeData = async () => {
       try {
-        const userId = localStorage.getItem("userId"); // Assuming userId is stored in localStorage
-        if (!userId) {
+        if (!user?.userId) {
           setError("User not logged in.");
           return;
         }
 
-        const response = await fetch(`/api/users/${userId}`);
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setError("Authentication token is missing.");
+          return;
+        }
+
+        const response = await fetch(`/api/users/${user.userId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
+        });
+
         if (!response.ok) {
           const errorData = await response.json();
+          console.error("API Error:", errorData); // Log the error response
           setError(errorData.error || "Failed to fetch tree data.");
           return;
         }
 
         const data: TreeNodeType = await response.json();
+        console.log("Fetched Tree Data:", data); // Log the fetched data
         setTreeData(data);
       } catch (fetchError) {
         console.error("Error fetching tree data:", fetchError); // Log the error
@@ -66,7 +79,7 @@ export default function TreeView() {
     };
 
     fetchTreeData();
-  }, []);
+  }, [user?.userId]);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
@@ -78,7 +91,6 @@ export default function TreeView() {
 
   return (
     <div className="relative h-full bg-transparent p-4">
-      {/* Page Content */}
       <div className="relative z-10">
         <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
           Tree View
@@ -86,19 +98,12 @@ export default function TreeView() {
         <p className="mt-2 text-neutral-600 dark:text-neutral-400">
           Visualize hierarchical data effectively using this tree view.
         </p>
-
-        {/* Render the tree */}
         <div className="mt-4">
           <TreeNode node={treeData} />
         </div>
       </div>
-
-      {/* Back to Home Button */}
       <div className="absolute top-4 right-4 z-20">
-        <Link
-          href="/"
-          className="text-blue-500 hover:underline cursor-pointer"
-        >
+        <Link href="/" className="text-blue-500 hover:underline cursor-pointer">
           &larr; Back to Home
         </Link>
       </div>

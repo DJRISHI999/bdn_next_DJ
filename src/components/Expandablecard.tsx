@@ -159,9 +159,9 @@ export default function ExpandableCardDemo() {
 
 const cards = [
   {
-    description: "New Jewar Airport",
+    description: "Jewar, Uttar Pradesh",
     title: "Avadh Enclave",
-    src: "/images/gate.webp",
+    src: "/images/avadh3.webp",
     ctaText: "Explore",
     ctaLink: "/projects/avadh-enclave",
     content: () => (
@@ -172,42 +172,42 @@ const cards = [
     ),
   },
   {
-    description: "Noida, Uttar Pradesh",
-    title: "Green Valley",
-    src: "/images/green-valley-1.webp",
+    description: "Dankaur, Gautam Budh Nagar",
+    title: "Drona Residency",
+    src: "/images/drona_residency.webp",
     ctaText: "Explore",
-    ctaLink: "/projects/green-valley",
+    ctaLink: "/projects/drona-residency",
     content: () => (
       <p>
-        Green Valley is a premier residential project in Noida, offering modern
-        amenities and a serene environment for families.
+        Drona Residency is a premium residential project in Dankaur, offering
+        modern amenities and a serene environment for families.
       </p>
     ),
   },
   {
-    description: "Gurgaon, Haryana",
-    title: "Skyline Heights",
-    src: "/images/skyline-heights-1.webp",
+    description: "Badalpur, Gautam Budh Nagar",
+    title: "Golden City",
+    src: "/images/golden-city-1.webp",
     ctaText: "Explore",
-    ctaLink: "/projects/skyline-heights",
+    ctaLink: "/projects/golden-city",
     content: () => (
       <p>
-        Skyline Heights is a luxurious high-rise apartment complex in Gurgaon,
-        providing breathtaking views and top-notch facilities for residents.
+        Golden City is a luxurious high-rise apartment project in Badalpur,
+        featuring breathtaking views and top-notch facilities for residents.
       </p>
     ),
   },
   {
-    description: "Faridabad, Haryana",
-    title: "Palm Residency",
-    src: "/images/palm-residency-1.webp",
+    description: "Noida Extension, Uttar Pradesh",
+    title: "Green Villa 1",
+    src: "/images/green-villa1.webp",
     ctaText: "Explore",
-    ctaLink: "/projects/palm-residency",
+    ctaLink: "/projects/green-villa-1",
     content: () => (
       <p>
-        Palm Residency offers affordable villas surrounded by lush greenery in
-        Faridabad. It is the perfect choice for families looking for a peaceful
-        and eco-friendly living environment.
+        Green Villa 1 is a spacious villa project in Noida Extension, designed
+        with modern architecture and amenities for a comfortable living
+        experience.
       </p>
     ),
   },

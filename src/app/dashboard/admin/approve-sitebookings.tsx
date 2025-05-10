@@ -7,16 +7,7 @@ import Link from "next/link";
 export default function ApproveSiteBookings() {
   return (
     <div className="relative h-full bg-transparent p-4">
-      {/* Particle Effect */}
-      <div className="absolute inset-0 z-0">
-        <Particles
-          quantity={80}
-          staticity={40}
-          ease={40}
-          size={0.5}
-          color="#ffffff"
-        />
-      </div>
+      
 
       {/* Page Content */}
       <div className="relative z-10">

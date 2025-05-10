@@ -1,4 +1,4 @@
-import  { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 // Define the valid keys for commissionRates as a string literal union type
 type CommissionLevel =
@@ -25,8 +25,8 @@ type CommissionLevel =
 
 // Define the commissionRates object with the keys as the CommissionLevel type
 const commissionRates: Record<CommissionLevel, number> = {
-  "BEGINNER": 500,
-  "STARTER": 600,
+  BEGINNER: 500,
+  STARTER: 600,
   "SALES EXECUTIVE": 700,
   "SR. SALES EXECUTIVE": 800,
   "STAR SALES EXECUTIVE": 900,
@@ -35,15 +35,15 @@ const commissionRates: Record<CommissionLevel, number> = {
   "STAR SALES LEADER": 1100,
   "SALES MANAGER": 1150,
   "SR. SALES MANAGER": 1200,
-  "PEARL": 1250,
+  PEARL: 1250,
   "STAR PEARL": 1300,
-  "EMERALD": 1350,
+  EMERALD: 1350,
   "STAR EMERALD": 1400,
-  "RUBY": 1450,
+  RUBY: 1450,
   "STAR RUBY": 1500,
-  "SHAFIRE": 1550,
+  SHAFIRE: 1550,
   "STAR SHAFIRE": 1600,
-  "DIAMOND": 1650,
+  DIAMOND: 1650,
   "STAR DIAMOND": 1700,
 };
 
@@ -118,7 +118,11 @@ UserSchema.statics.getAllAssociates = async function () {
 };
 
 // Static method to update level and commission (Admin only)
-UserSchema.statics.updateAssociate = async function (userId: string, updates: { level?: string; commission?: number }, adminId: string) {
+UserSchema.statics.updateAssociate = async function (
+  userId: string,
+  updates: { level?: string; commission?: number },
+  adminId: string
+) {
   const User = models.User || model("User", UserSchema);
 
   // Check if the admin exists

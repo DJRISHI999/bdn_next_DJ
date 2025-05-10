@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import { promises as fs } from "fs";
 import Image from "next/image";
+import Link from "next/link";
 import path from "path";
 import ReactMarkdown from "react-markdown";
+import { IconBrandYoutubeFilled } from "@tabler/icons-react";
 
 // Project Interface
 interface Project {
@@ -11,9 +13,13 @@ interface Project {
   heading: string;
   image1: string;
   image2?: string;
+  video?: string; // Add video field for YouTube links
+  thumbnail?: string; // Add thumbnail field for video
   text: string;
   slug: string;
   meta: string;
+  images?: string[]; // Add images field for multiple images
+  captions?: string[]; // Add captions field for image captions
 }
 
 // Function to Load Project Data
@@ -25,7 +31,6 @@ const getProjects = async (): Promise<Project[]> => {
 
 // **Dynamic Metadata**
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-
   const projects = await getProjects();
   const project = projects.find((project) => project.slug === params.slug);
 
@@ -64,22 +69,49 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         </div>
 
         {/* Images */}
-        <Image
-          src={project.image1}
-          alt={project.heading}
-          className="w-full rounded-lg mb-8"
-          width={800}
-          height={600}
-          priority
-        />
-        {project.image2 && (
-          <Image
-            src={project.image2}
-            alt={project.heading}
-            className="w-full rounded-lg mb-8"
-            width={800}
-            height={600}
-          />
+        {project.images && project.images.length > 0 && (
+          <div className="flex flex-col gap-8 mb-8">
+            {project.images.map((image: string, index: number) => (
+              image && ( // Ensure the image is not an empty string or undefined
+                <div key={index} className="flex flex-col items-center">
+                  <Image
+                    src={image}
+                    alt={`${project.heading} - Image ${index + 1}`}
+                    className="w-full rounded-lg"
+                    width={800}
+                    height={600}
+                  />
+                  {project.captions && project.captions[index] && (
+                    <p className="text-gray-300 text-sm mt-2 text-center">
+                      {project.captions[index]}
+                    </p>
+                  )}
+                </div>
+              )
+            ))}
+          </div>
+        )}
+
+        {/* Video */}
+        {project.video && project.thumbnail && (
+          <Link
+            href={project.video}
+            target="__blank"
+            className="relative flex gap-10 h-full group/image mb-8"
+          >
+            <div className="w-full mx-auto bg-transparent dark:bg-transparent group h-full">
+              <div className="flex flex-1 w-full h-full flex-col space-y-2 relative">
+                <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto" />
+                <Image
+                  src={project.thumbnail} // Use the thumbnail from the JSON file
+                  alt="Video Thumbnail"
+                  width={800}
+                  height={800}
+                  className="h-full w-full aspect-square object-cover object-center rounded-sm blur-none group-hover/image:blur-md transition-all duration-200"
+                />
+              </div>
+            </div>
+          </Link>
         )}
 
         {/* Content */}
@@ -87,9 +119,6 @@ export default async function ProjectPage({ params }: { params: { slug: string }
           components={{
             h1: (props) => (
               <h1 className="text-3xl font-bold text-white mb-4 font-outfit" {...props} />
-            ),
-            h2: (props) => (
-              <h2 className="text-2xl font-semibold text-white mb-3 font-outfit" {...props} />
             ),
             p: (props) => (
               <p className="text-gray-300 leading-relaxed mb-4 font-inter" {...props} />

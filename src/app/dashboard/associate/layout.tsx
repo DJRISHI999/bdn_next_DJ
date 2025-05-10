@@ -8,10 +8,8 @@ export default function AssociateLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-background text-foreground">
-        <main>{children}</main>
-      </body>
-    </html>
+    <div className="associate-layout bg-background text-foreground">
+      <main>{children}</main>
+    </div>
   );
 }

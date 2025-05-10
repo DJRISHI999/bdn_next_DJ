@@ -8,13 +8,15 @@ import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { Particles } from "@/components/magicui/particles";
 import { useRouter } from "next/navigation";
 import Link from "next/link"; // Import Link from next/link
+import { useAuth } from "@/context/AuthContext"; // Import AuthContext
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const router = useRouter(); // Move this to the top level of the component
+  const { login } = useAuth(); // Use login from AuthContext
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,13 +31,10 @@ export default function LoginForm() {
 
       if (response.ok) {
         const data = await response.json();
+        const expirationTime = Date.now() + data.expiresIn * 1000; // Convert seconds to milliseconds
 
-        // Store the JWT token in localStorage
-        localStorage.setItem("token", data.token);
-
-        // Redirect to the home page
-        const router = useRouter();
-        router.push("/");
+        login(data.user, data.token, expirationTime); // Use context to handle login
+        router.push("/"); // Redirect to home page
       } else {
         const errorData = await response.json();
         setError(errorData.error || "Invalid credentials");

@@ -8,10 +8,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-background text-foreground">
-        <main>{children}</main>
-      </body>
-    </html>
+    <div className="admin-layout bg-background text-foreground">
+      <main>{children}</main>
+    </div>
   );
 }

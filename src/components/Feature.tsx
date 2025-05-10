@@ -121,7 +121,7 @@ export const SkeletonOne = () => {
       <div className="w-full p-5 mx-auto bg-white dark:bg-neutral-900 shadow-2xl group h-full hover:scale-105 transition-transform duration-300 rounded-md">
         <div className="flex flex-1 w-full h-full flex-col space-y-2 relative overflow-hidden">
           <Image
-            src="/images/gate.webp"
+            src="/images/avadh3.webp"
             alt="header"
             width={800}
             height={800}
@@ -236,7 +236,7 @@ export const SkeletonTwo = () => {
 export const SkeletonThree = () => {
   return (
     <Link
-      href="https://www.youtube.com/watch?v=RPa3_AD1_Vs"
+      href="https://youtube.com/shorts/M4sTwnWq0_A?si=-nVijDShV0S_X67o"
       target="__blank"
       className="relative flex gap-10 h-full group/image"
     >
@@ -244,7 +244,7 @@ export const SkeletonThree = () => {
         <div className="flex flex-1 w-full h-full flex-col space-y-2 relative">
           <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto" />
           <Image
-            src="/images/gate.webp"
+            src="/images/drona_residency.webp"
             alt="header"
             width={800}
             height={800}
