@@ -35,7 +35,7 @@ const realEstateProjects = [
     title: "Green Villa 1",
     location: "Noida Extension, Uttar Pradesh",
     date: "May 5, 2025",
-    slug: "Green Villa 1",
+    slug: "green-villa-1",
     image: "/images/green-villa1.webp",
     description: "Spacious villas with modern architecture and amenities.",
   },

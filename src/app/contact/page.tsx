@@ -34,7 +34,7 @@ const ContactUs = () => {
         vx={0.1}
       />
 
-      <div className="flex flex-col lg:flex-row justify-between items-center bg-transparent text-white p-8 lg:p-16 min-h-screen">
+      <div className="flex flex-col lg:flex-row justify-between items-center bg-transparent text-white p-8 lg:p-16 min-h-screen mt-20 lg:mt-0">
         {/* Left Section */}
         <div className="lg:w-1/2 mb-8 lg:mb-0">
           <h1 className="text-4xl font-bold mb-4">Get in Touch with Bhoodhan Infratech</h1>
