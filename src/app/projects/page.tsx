@@ -28,7 +28,7 @@ const realEstateProjects = [
     location: "Badalpur, Uttar Pradesh",
     date: "March 10, 2025",
     slug: "golden-city",
-    image: "/images/skyline-heights.webp",
+    image: "/images/golden-city-1.webp",
     description: "Luxurious high-rise apartments with breathtaking views.",
   },
   {
@@ -36,7 +36,7 @@ const realEstateProjects = [
     location: "Noida Extension, Uttar Pradesh",
     date: "May 5, 2025",
     slug: "Green Villa 1",
-    image: "/images/palm-residency.webp",
+    image: "/images/green-villa1.webp",
     description: "Spacious villas with modern architecture and amenities.",
   },
 ];
