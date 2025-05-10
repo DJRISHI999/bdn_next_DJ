@@ -76,7 +76,7 @@ export default function Footer() {
           {/* Social Media Links */}
           <div className="flex justify-center space-x-4 mt-6">
             <Link
-              href="https://facebook.com"
+              href="https://www.facebook.com/share/19RxsPVQBw/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500"
@@ -84,7 +84,7 @@ export default function Footer() {
               <FontAwesomeIcon icon={faFacebookF} />
             </Link>
             <Link
-              href="https://instagram.com"
+              href="https://www.instagram.com/bhoodhaninfratechpvtltd?igsh=MTh1bXQ3cGJ1a2dubw=="
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-pink-500"
