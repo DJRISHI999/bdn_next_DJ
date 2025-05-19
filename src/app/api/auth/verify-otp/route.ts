@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-
-// Temporary in-memory OTP store (use Redis or database in production)
-const otpStore: Record<string, { otp: string; expiresAt: number }> = {};
+import clientPromise from "@/lib/mongo";
 
 export async function POST(request: Request) {
   const { email, otp } = await request.json();
@@ -11,25 +9,26 @@ export async function POST(request: Request) {
   }
 
   try {
-    // Check if OTP exists for the email
-    const storedOtpData = otpStore[email];
-    if (!storedOtpData) {
+    const client = await clientPromise;
+    const db = client.db();
+    const record = await db.collection("otps").findOne({ email });
+
+    if (!record) {
       return NextResponse.json({ error: "No OTP found for this email" }, { status: 404 });
     }
 
     // Check if OTP is expired
-    if (Date.now() > storedOtpData.expiresAt) {
-      delete otpStore[email]; // Clean up expired OTP
+    if (Date.now() > record.expiresAt) {
+      await db.collection("otps").deleteOne({ email }); // Clean up expired OTP
       return NextResponse.json({ error: "OTP has expired" }, { status: 400 });
     }
 
     // Verify OTP
-    if (storedOtpData.otp !== otp) {
+    if (record.otp !== otp) {
       return NextResponse.json({ error: "Invalid OTP" }, { status: 400 });
     }
 
-    // OTP is valid, clean up the store
-    delete otpStore[email];
+   
 
     return NextResponse.json({ message: "OTP verified successfully" });
   } catch (error) {

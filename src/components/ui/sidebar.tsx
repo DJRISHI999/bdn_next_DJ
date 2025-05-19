@@ -158,14 +158,25 @@ export const MobileSidebar = ({
 export const SidebarLink = ({
   link,
   className,
-  onClick, // Add onClick to the props
+  onClick: propOnClick, // Renamed to avoid conflict with internal handler
   ...props
 }: {
   link: Links;
   className?: string;
-  onClick?: () => void; // Add onClick as an optional prop
+  onClick?: () => void;
 }) => {
-  const { open, animate } = useSidebar();
+  const { open, setOpen, animate } = useSidebar(); // Get setOpen from context
+
+  const handleClick = () => {
+    if (propOnClick) {
+      propOnClick(); // Call the original onClick from props
+    }
+    // If the sidebar is open (which would be the case for the mobile overlay), close it.
+    if (open) {
+      setOpen(false);
+    }
+  };
+
   return (
     <Link
       href={link.href}
@@ -173,7 +184,7 @@ export const SidebarLink = ({
         "flex items-center justify-start gap-2 group/sidebar py-2",
         className
       )}
-      onClick={onClick} // Pass the onClick handler
+      onClick={handleClick} // Use the new composite handler
       {...props}
     >
       {link.icon}

@@ -104,9 +104,13 @@ UserSchema.pre("save", async function (next) {
     // Customers are free from parent-child relationships
     this.parentId = null;
 
+    // Remove level and commission for customers
+    this.level = "Customer"; // Ensure level is not set
+    this.commission = 0; // Ensure commission is not set
+
     // Ensure referralCode is null for customers
     this.referralCode = null;
-  }
+}
 
   next();
 });

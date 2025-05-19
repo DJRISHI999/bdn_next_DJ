@@ -2,13 +2,12 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 import crypto from "crypto";
+import clientPromise from "@/lib/mongo"; // Import your MongoDB client
 
- const rateLimiter = new RateLimiterMemory({
+const rateLimiter = new RateLimiterMemory({
   points: 5,
   duration: 60 * 5,
 });
-
-const otpStore: Record<string, { otp: string; expiresAt: number }> = {};
 
 export async function POST(request: Request) {
   const { email } = await request.json();
@@ -22,7 +21,15 @@ export async function POST(request: Request) {
 
     const otp = crypto.randomInt(100000, 999999).toString();
     const expiresAt = Date.now() + 5 * 60 * 1000;
-    otpStore[email] = { otp, expiresAt };
+
+    // Store OTP in MongoDB
+    const client = await clientPromise;
+    const db = client.db(); // Use default DB or specify one
+    await db.collection("otps").updateOne(
+      { email },
+      { $set: { otp, expiresAt } },
+      { upsert: true }
+    );
 
     const transporter = nodemailer.createTransport({
       service: "gmail",

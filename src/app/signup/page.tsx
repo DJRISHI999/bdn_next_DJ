@@ -17,6 +17,8 @@ export default function SignupForm() {
     confirmPassword: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,11 +28,21 @@ export default function SignupForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setSuccessMessage(null);
+    setLoading(true);
 
     const { firstName, lastName, email, mobile, password, confirmPassword } = formData;
 
+    // Validate input
+    if (!firstName || !lastName || !email || !mobile || !password || !confirmPassword) {
+      setError("All fields are required!");
+      setLoading(false);
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match!");
+      setLoading(false);
       return;
     }
 
@@ -41,15 +53,21 @@ export default function SignupForm() {
         body: JSON.stringify({ firstName, lastName, email, mobile, password }),
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        router.push("/signup-success"); // Redirect to success page
-      } else {
-        setError(data.error || "Signup failed. Please try again.");
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.error || "Signup failed. Please try again.");
+        setLoading(false);
+        return;
       }
+
+      const data = await response.json();
+      setSuccessMessage("Signup successful! Redirecting...");
+      setTimeout(() => router.push("/login"), 2000); // Redirect after 2 seconds
     } catch (err) {
       console.error("Signup error:", err);
       setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -160,14 +178,19 @@ export default function SignupForm() {
             />
           </LabelInputContainer>
 
+          {/* Error Message */}
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
+          {/* Success Message */}
+          {successMessage && <p className="text-green-500 text-sm mb-4">{successMessage}</p>}
 
           {/* Signup Button */}
           <button
             className="cursor-pointer group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-gray-800 to-gray-700 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
             type="submit"
+            disabled={loading}
           >
-            Signup →
+            {loading ? "Signing up..." : "Signup →"}
             <BottomGradient />
           </button>
 

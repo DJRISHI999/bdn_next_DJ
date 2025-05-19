@@ -114,7 +114,7 @@ export default function LoginForm() {
           {/* Links */}
           <div className="mt-4 flex justify-between text-sm">
             <Link
-              href="/forgot-password"
+              href="/forgotpassword"
               className="text-blue-400 hover:text-blue-500"
             >
               Forgot Password?

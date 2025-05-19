@@ -3,6 +3,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Particles } from "./magicui/particles";
+import { IconX } from "@tabler/icons-react"; // Import IconX
 
 import Image from "next/image"; // Import Image from next/image
 
@@ -60,8 +61,21 @@ export default function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              className="relative w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
             >
+              {/* Close Button */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setActive(null)}
+                className="absolute top-4 right-4 z-20 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white cursor-pointer"
+                aria-label="Close card"
+              >
+                <IconX size={20} />
+              </motion.button>
+
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <Image
                   width={500}

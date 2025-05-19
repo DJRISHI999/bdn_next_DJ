@@ -40,6 +40,8 @@ const commissionRates: Record<string, number> = {
 export default function EditAssociates() {
   const [associates, setAssociates] = useState<Associate[]>([]); // Use the Associate type
   const [message, setMessage] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const associatesPerPage = 2;
 
   useEffect(() => {
     const fetchAssociates = async () => {
@@ -112,21 +114,51 @@ export default function EditAssociates() {
     }
   };
 
+  // Calculate current associates to display
+  const indexOfLastAssociate = currentPage * associatesPerPage;
+  const indexOfFirstAssociate = indexOfLastAssociate - associatesPerPage;
+  const currentAssociates = associates.slice(indexOfFirstAssociate, indexOfLastAssociate);
+  const totalPages = Math.ceil(associates.length / associatesPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
-    <div className="relative h-full bg-transparent p-4">
-      
+    <div className="relative h-full bg-transparent p-4 flex flex-col">
+      <Particles className="absolute inset-0 -z-10" color="#707070" />
 
       {/* Page Content */}
-      <div className="relative z-10">
-        <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200 text-center sm:text-left">
-          Edit Associates
-        </h2>
-        <p className="mt-2 text-neutral-600 dark:text-neutral-400 text-center sm:text-left">
-          View and manage associate details effectively.
-        </p>
+      <div className="relative z-10 flex-grow">
+        <div className="flex flex-col sm:flex-row justify-between items-start mb-6">
+          <div className="mb-4 sm:mb-0">
+            <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200 text-center sm:text-left">
+              Edit Associates
+            </h2>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400 text-center sm:text-left">
+              View and manage associate details effectively.
+            </p>
+          </div>
+          <div className="w-full sm:w-auto flex justify-end">
+            <Link
+              href="/"
+              className="text-blue-500 hover:underline cursor-pointer whitespace-nowrap px-4 py-2 rounded-md border border-blue-500 hover:bg-blue-500 hover:text-white transition-colors duration-150"
+            >
+              &larr; Back to Home
+            </Link>
+          </div>
+        </div>
 
         <div className="mt-6 space-y-4">
-          {associates.map((associate) => (
+          {currentAssociates.map((associate) => (
             <div
               key={associate.userId}
               className="p-4 bg-white dark:bg-neutral-800 rounded-md shadow flex flex-col sm:flex-row sm:items-center sm:justify-between"
@@ -166,16 +198,29 @@ export default function EditAssociates() {
           ))}
         </div>
         {message && <p className="mt-4 text-green-500 text-center">{message}</p>}
-      </div>
 
-      {/* Back to Home Button */}
-      <div className="absolute top-4 right-4 z-20">
-        <Link
-          href="/"
-          className="text-blue-500 hover:underline cursor-pointer"
-        >
-          &larr; Back to Home
-        </Link>
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="mt-8 flex justify-center items-center space-x-4">
+            <button
+              onClick={prevPage}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300 dark:disabled:bg-neutral-700"
+            >
+              Previous
+            </button>
+            <span className="text-neutral-700 dark:text-neutral-300">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={nextPage}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300 dark:disabled:bg-neutral-700"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
