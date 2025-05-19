@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react"; // Added Suspense
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Particles } from "@/components/magicui/particles";
@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-export default function ResetPassword() {
+// This component contains the form and uses useSearchParams
+function ResetPasswordForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -50,66 +51,78 @@ export default function ResetPassword() {
   };
 
   return (
+    <div className="mt-25 mx-auto w-full max-w-md rounded-none bg-gray-850/45 backdrop-blur-sm p-4 md:rounded-2xl md:p-8 dark:bg-gray-850/45 backdrop-blur-sm">
+      <h2 className="text-xl font-bold text-white text-center">Reset Password</h2>
+      <p className="mt-2 max-w-sm text-sm text-neutral-400 text-center mx-auto">
+        Enter your new password below.
+      </p>
+
+      {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
+      {message && <p className="text-green-500 text-sm mb-4 text-center">{message}</p>}
+
+      <form className="my-8" onSubmit={handleSubmit}>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="password">New Password</Label>
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="new-password"
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Input
+            id="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            autoComplete="new-password"
+          />
+        </LabelInputContainer>
+
+        <button
+          className="cursor-pointer group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-gray-800 to-gray-700 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
+          type="submit"
+        >
+          Reset Password
+          <BottomGradient />
+        </button>
+      </form>
+
+      <div className="mt-4 flex justify-between text-sm">
+        <Link href="/login" className="text-blue-400 hover:text-blue-500">
+          Back to Login
+        </Link>
+        <Link href="/signup" className="text-blue-400 hover:text-blue-500">
+          Signup
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+// The main page component wraps the form in Suspense
+export default function ResetPasswordPage() {
+  return (
     <div className="relative min-h-screen overflow-hidden bg-transparent">
       <Particles
         className="absolute inset-0 -z-10"
         quantity={10}
-        color="#FFFF00"
-        size={9}
-        vx={0.1}
+        color="#FFFF00" // Retained original particle color
+        size={9}        // Retained original particle size
+        vx={0.1}        // Retained original particle vx
       />
-
-      <div className="mt-25 mx-auto w-full max-w-md rounded-none bg-gray-850/45 backdrop-blur-sm p-4 md:rounded-2xl md:p-8 dark:bg-gray-850/45 backdrop-blur-sm">
-        <h2 className="text-xl font-bold text-white text-center">Reset Password</h2>
-        <p className="mt-2 max-w-sm text-sm text-neutral-400 text-center mx-auto">
-          Enter your new password below.
-        </p>
-
-        {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
-        {message && <p className="text-green-500 text-sm mb-4 text-center">{message}</p>}
-
-        <form className="my-8" onSubmit={handleSubmit}>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="password">New Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="new-password"
-            />
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              autoComplete="new-password"
-            />
-          </LabelInputContainer>
-
-          <button
-            className="cursor-pointer group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-gray-800 to-gray-700 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
-            type="submit"
-          >
-            Reset Password
-            <BottomGradient />
-          </button>
-        </form>
-
-        <div className="mt-4 flex justify-between text-sm">
-          <Link href="/login" className="text-blue-400 hover:text-blue-500">
-            Back to Login
-          </Link>
-          <Link href="/signup" className="text-blue-400 hover:text-blue-500">
-            Signup
-          </Link>
+      <Suspense fallback={
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-white text-lg">Loading page content...</p>
         </div>
-      </div>
+      }>
+        <ResetPasswordForm />
+      </Suspense>
     </div>
   );
 }
