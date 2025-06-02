@@ -40,7 +40,10 @@ function ResetPasswordForm() {
       const data = await response.json();
       if (response.ok) {
         setMessage("Password reset successfully. Redirecting to login...");
-        setTimeout(() => router.push("/login"), 3000);
+        // Clear any auth tokens/session
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        setTimeout(() => window.location.replace("/login"), 3000);
       } else {
         setError(data.error || "Failed to reset password. Please try again.");
       }

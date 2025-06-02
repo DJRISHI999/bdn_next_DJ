@@ -27,6 +27,7 @@ export async function GET(request: Request) {
     // Return the user details
     return NextResponse.json({
       userId: user.userId,
+      level: user.level,
       name: user.name,
       email: user.email,
       role: user.role,

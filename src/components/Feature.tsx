@@ -59,8 +59,7 @@ export default function FeaturesSectionDemo() {
         </h4>
 
         <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300 font-barlow">
-          From image generation to video generation, Everything AI has APIs for
-          literally everything. It can even create this website copy for you.
+          Bhoodhan is committed to providing the best real estate solutions with a focus on quality, affordability, and customer satisfaction. Explore our offerings below.
         </p>
       </div>
 
