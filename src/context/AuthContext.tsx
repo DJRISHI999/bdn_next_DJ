@@ -66,8 +66,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // Fetch the latest user data from the profile route
   const refreshUser = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return;
-
+    if (!token) {
+      setIsLoggedIn(false);
+      setUser(null);
+      return;
+    }
     try {
       const response = await fetch("/api/users/profile", {
         method: "GET",
@@ -75,16 +78,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       if (response.ok) {
         const data = await response.json();
         setUser(data); // Update the user state with the latest data
         localStorage.setItem("user", JSON.stringify(data)); // Update localStorage
         console.log("User data refreshed:", data);
       } else {
+        setIsLoggedIn(false);
+        setUser(null);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("tokenExpiration");
         console.error("Failed to refresh user data:", await response.json());
       }
     } catch (error) {
+      setIsLoggedIn(false);
+      setUser(null);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("tokenExpiration");
       console.error("Error refreshing user data:", error);
     }
   };
