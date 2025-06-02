@@ -91,7 +91,9 @@ export default function EditProfile() {
     formData.append("email", email);
     formData.append("phoneNumber", phoneNumber);
     if (password) formData.append("password", password);
-    if (profilePic && profilePic instanceof File) {
+    if (
+      typeof window !== "undefined" && profilePic && profilePic instanceof File
+    ) {
       formData.append("profilePicture", profilePic); // Append the actual file
     }
 
@@ -158,9 +160,9 @@ export default function EditProfile() {
             <div className="mt-2 flex items-center space-x-4">
               <Image
                 src={
-                  profilePic instanceof File
+                  typeof window !== "undefined" && profilePic instanceof File
                     ? URL.createObjectURL(profilePic)
-                    : profilePic || "/images/profile.webp"
+                    : (profilePic as string) || "/images/profile.webp"
                 }
                 alt="Profile"
                 className="h-16 w-16 rounded-full object-cover "
