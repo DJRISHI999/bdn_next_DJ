@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { Particles } from "@/components/magicui/particles";
 import Link from "next/link";
 
-// Define the type for an Associate
+// Extend Associate type to include parentId and _editingParentId for UI state
 type Associate = {
   userId: string;
   name: string;
   level: string;
   commission: number;
+  parentId?: string; // Add parentId for display and update
+  _editingParentId?: string; // For UI input state only
 };
 
 // Define the commission rates
@@ -43,6 +45,9 @@ export default function EditAssociates() {
   const [currentPage, setCurrentPage] = useState(1);
   const associatesPerPage = 2;
 
+  // Message fade-out state
+  const [showMessage, setShowMessage] = useState(false);
+
   useEffect(() => {
     const fetchAssociates = async () => {
       try {
@@ -71,6 +76,17 @@ export default function EditAssociates() {
 
     fetchAssociates();
   }, []);
+
+  // Show and auto-hide message with fade-out
+  useEffect(() => {
+    if (message) {
+      setShowMessage(true);
+      const timeout = setTimeout(() => {
+        setShowMessage(false);
+      }, 1000); // Show for 1 second
+      return () => clearTimeout(timeout);
+    }
+  }, [message]);
 
   const handleUpdate = async (userId: string, updates: { level?: string; commission?: number }) => {
     try {
@@ -135,9 +151,8 @@ export default function EditAssociates() {
   return (
     <div className="relative h-full bg-transparent p-4 flex flex-col">
       <Particles className="absolute inset-0 -z-10" color="#707070" />
-
       {/* Page Content */}
-      <div className="relative z-10 flex-grow">
+      <div className="relative z-10 flex-grow flex flex-col">
         <div className="flex flex-col sm:flex-row justify-between items-start mb-6">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200 text-center sm:text-left">
@@ -156,8 +171,8 @@ export default function EditAssociates() {
             </Link>
           </div>
         </div>
-
-        <div className="mt-6 space-y-4">
+        {/* Scrollable associates list */}
+        <div className="mt-6 space-y-4 overflow-y-auto flex-1 pr-2" style={{ maxHeight: 'calc(100vh - 260px)' }}>
           {currentAssociates.map((associate) => (
             <div
               key={associate.userId}
@@ -194,14 +209,74 @@ export default function EditAssociates() {
                   {commissionRates[associate.level]}
                 </p>
               </div>
+              {/* Change Spouse (Parent) Column */}
+              <div className="mt-4 sm:mt-0 sm:w-1/4 flex flex-col items-start">
+                <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+                  Change Spouse (Parent):
+                </label>
+                {/* Inline input and button for changing parent */}
+                <div className="flex w-full gap-2 items-center">
+                  <input
+                    type="text"
+                    placeholder="Enter new parent ID"
+                    className="rounded-md border border-neutral-300 p-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 flex-1"
+                    value={associate._editingParentId || ''}
+                    onChange={e => {
+                      const value = e.target.value;
+                      setAssociates(prev => prev.map(a =>
+                        a.userId === associate.userId ? { ...a, _editingParentId: value } : a
+                      ));
+                    }}
+                  />
+                  <button
+                    className="rounded-md bg-blue-500 text-white px-3 py-1 text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    onClick={async () => {
+                      const newParentId = associate._editingParentId?.trim();
+                      if (newParentId && newParentId !== '') {
+                        try {
+                          const response = await fetch(`/api/associates/change-parent`, {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ userId: associate.userId, parentId: newParentId }),
+                          });
+                          if (response.ok) {
+                            setMessage("Parent updated successfully!");
+                            setAssociates(prev => prev.map(a =>
+                              a.userId === associate.userId ? { ...a, parentId: newParentId, _editingParentId: '' } : a
+                            ));
+                          } else {
+                            const error = await response.json();
+                            setMessage(error.error || "Failed to update parent.");
+                          }
+                        } catch {
+                          setMessage("An error occurred while updating the parent.");
+                        }
+                      }
+                    }}
+                    type="button"
+                  >
+                    Change
+                  </button>
+                </div>
+                {associate.parentId && (
+                  <span className="text-xs text-neutral-500 mt-1">Current: {associate.parentId}</span>
+                )}
+              </div>
             </div>
           ))}
         </div>
-        {message && <p className="mt-4 text-green-500 text-center">{message}</p>}
-
+        {/* Message moved above pagination and outside scrollable area */}
+        <div className="z-30 w-full flex justify-center mt-2 mb-2 pointer-events-none">
+          <p
+            className={`text-green-500 text-center bg-neutral-900 bg-opacity-80 px-4 py-2 rounded shadow-lg max-w-xs transition-opacity duration-700 ${showMessage ? 'opacity-100' : 'opacity-0'}`}
+            style={{ pointerEvents: 'auto' }}
+          >
+            {message}
+          </p>
+        </div>
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="mt-8 flex justify-center items-center space-x-4">
+          <div className="mt-4 flex justify-center items-center space-x-4 bg-transparent z-20 sticky bottom-0 pb-2 pt-2" style={{ background: 'inherit' }}>
             <button
               onClick={prevPage}
               disabled={currentPage === 1}
