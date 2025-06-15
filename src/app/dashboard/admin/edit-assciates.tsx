@@ -172,7 +172,7 @@ export default function EditAssociates() {
           </div>
         </div>
         {/* Scrollable associates list */}
-        <div className="mt-6 space-y-4 overflow-y-auto flex-1 pr-2" style={{ maxHeight: 'calc(100vh - 260px)' }}>
+        <div className="mt-6 space-y-4 overflow-y-auto flex-1 pr-2 max-h-[calc(100vh-260px)]">
           {currentAssociates.map((associate) => (
             <div
               key={associate.userId}
@@ -266,17 +266,16 @@ export default function EditAssociates() {
           ))}
         </div>
         {/* Message moved above pagination and outside scrollable area */}
-        <div className="z-30 w-full flex justify-center mt-2 mb-2 pointer-events-none">
+        <div className="z-30 w-full flex justify-center mt-2 mb-2">
           <p
             className={`text-green-500 text-center bg-neutral-900 bg-opacity-80 px-4 py-2 rounded shadow-lg max-w-xs transition-opacity duration-700 ${showMessage ? 'opacity-100' : 'opacity-0'}`}
-            style={{ pointerEvents: 'auto' }}
           >
             {message}
           </p>
         </div>
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="mt-4 flex justify-center items-center space-x-4 bg-transparent z-20 sticky bottom-0 pb-2 pt-2" style={{ background: 'inherit' }}>
+          <div className="mt-4 flex justify-center items-center space-x-4 bg-transparent z-20 sticky bottom-0 pb-2 pt-2">
             <button
               onClick={prevPage}
               disabled={currentPage === 1}

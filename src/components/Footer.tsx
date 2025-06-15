@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Particles } from "@/components/magicui/particles"; // Adjust the import path if necessary
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF, faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookF, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
   return (
@@ -76,7 +76,7 @@ export default function Footer() {
           {/* Social Media Links */}
           <div className="flex justify-center space-x-4 mt-6">
             <Link
-              href="https://www.facebook.com/share/19RxsPVQBw/"
+              href="https://www.facebook.com/share/1AgMjR4QVF/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500"
@@ -92,12 +92,14 @@ export default function Footer() {
               <FontAwesomeIcon icon={faInstagram} />
             </Link>
             <Link
-              href="https://linkedin.com"
+              href="https://www.youtube.com/@bhoodhaninfratech"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-600"
+              className="text-gray-400 hover:text-red-600"
             >
-              <FontAwesomeIcon icon={faLinkedinIn} />
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a2.994 2.994 0 0 0-2.112-2.112C19.692 3.5 12 3.5 12 3.5s-7.692 0-9.386.574A2.994 2.994 0 0 0 .502 6.186C0 7.88 0 12 0 12s0 4.12.502 5.814a2.994 2.994 0 0 0 2.112 2.112C4.308 20.5 12 20.5 12 20.5s7.692 0 9.386-.574a2.994 2.994 0 0 0 2.112-2.112C24 16.12 24 12 24 12s0-4.12-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
             </Link>
           </div>
 

@@ -61,6 +61,42 @@ export default function FeaturesSectionDemo() {
         <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300 font-barlow">
           Bhoodhan is committed to providing the best real estate solutions with a focus on quality, affordability, and customer satisfaction. Explore our offerings below.
         </p>
+
+        <div className="flex justify-center gap-4 mt-8">
+          <a
+            href="https://www.facebook.com/share/1AgMjR4QVF/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="hover:opacity-80 transition"
+          >
+            <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" className="text-blue-600">
+              <path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.406.595 24 1.326 24H12.82v-9.294H9.692v-3.622h3.127V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.406 24 22.674V1.326C24 .592 23.406 0 22.675 0"/>
+            </svg>
+          </a>
+          <a
+            href="https://www.instagram.com/bhoodhaninfratechpvtltd?igsh=MTh1bXQ3cGJ1a2dubw=="
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="hover:opacity-80 transition"
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-pink-600">
+              <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5zm5.25.75a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg>
+          </a>
+          <a
+            href="https://www.youtube.com/@bhoodhaninfratech"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+            className="hover:opacity-80 transition"
+          >
+            <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" className="text-red-600">
+              <path d="M23.498 6.186a2.994 2.994 0 0 0-2.112-2.112C19.692 3.5 12 3.5 12 3.5s-7.692 0-9.386.574A2.994 2.994 0 0 0 .502 6.186C0 7.88 0 12 0 12s0 4.12.502 5.814a2.994 2.994 0 0 0 2.112 2.112C4.308 20.5 12 20.5 12 20.5s7.692 0 9.386-.574a2.994 2.994 0 0 0 2.112-2.112C24 16.12 24 12 24 12s0-4.12-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
       <div className="relative">
