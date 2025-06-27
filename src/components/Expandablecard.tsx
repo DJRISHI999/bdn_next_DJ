@@ -186,15 +186,15 @@ const cards = [
     ),
   },
   {
-    description: "Dankaur, Gautam Budh Nagar",
-    title: "Drona Residency",
-    src: "/images/drona_residency.webp",
+    description: "Bilaspur, Gautam Budh Nagar",
+    title: "Umang City",
+    src: "/images/UMANG CITY 1.webp",
     ctaText: "Explore",
-    ctaLink: "/projects/drona-residency",
+    ctaLink: "/projects/umang-city",
     content: () => (
       <p>
-        Drona Residency is a premium residential project in Dankaur, offering
-        modern amenities and a serene environment for families.
+        Umang City is a premium residential project in Bilaspur, offering modern
+        amenities and a serene living environment.
       </p>
     ),
   },

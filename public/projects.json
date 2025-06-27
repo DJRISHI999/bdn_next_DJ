@@ -20,22 +20,34 @@
     "meta": "Affordable Housing, Jewar, Real Estate"
   },
   {
-    "date": "March 20, 2025",
+    "date": "June 27, 2025",
     "type": "Commercial",
-    "heading": "Drona Residency",
+    "heading": "Umang City",
     "content": [
-      "Drona Residency offers premium commercial spaces.",
-      "State-of-the-art office spaces and retail outlets."
+      "Umang City is a premier commercial project.",
+      "Umang City is a vibrant hub for businesses and shoppers.",
+      "Featuring state-of-the-art office spaces and retail outlets."
     ],
     "images": [
-      "/images/drona_residency.webp",
-      "/images/drona_residency2.webp"
+      "/images/UMANG CITY 1.webp",
+      "/images/UMANG CITY 2.webp",
+      "/images/UMANG CITY 3.webp",
+      "/images/UMANG CITY 4.webp",
+      "/images/UMANG CITY 5.webp"
     ],
-    "video": "https://youtube.com/shorts/M4sTwnWq0_A?si=FRA_SNLAH4nul8B7",
-    "thumbnail": "/images/drona_residency.webp",
-    "text": "## Drona Residency\n\nDrona Residency is a premium commercial project located in Noida. It features state-of-the-art office spaces, retail outlets, and recreational areas, making it an ideal destination for businesses and shoppers.",
-    "slug": "drona-residency",
-    "meta": "Commercial, Dankaur,G.B.Nagar"
+    "videos": [
+      {
+        "url": "https://www.youtube.com/watch?v=nTQjQwozb5Q",
+        "thumbnail": "/images/UMANG CITY 1.webp"
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=WedI_v31URM",
+        "thumbnail": "/images/UMANG CITY 2.webp"
+      }
+    ],
+    "text": "## Umang City\n\n is a premium commercial project located in Noida. It features state-of-the-art office spaces, retail outlets, and recreational areas, making it an ideal destination for businesses and shoppers.",
+    "slug": "umang-city",
+    "meta": "Commercial, Bilaspur, G.B.Nagar"
   },
   {
     "date": "March 10, 2025",

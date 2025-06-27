@@ -20,6 +20,7 @@ interface Project {
   meta: string;
   images?: string[]; // Add images field for multiple images
   captions?: string[]; // Add captions field for image captions
+  videos?: { url: string; thumbnail: string }[]; // Add videos field for multiple videos
 }
 
 // Function to Load Project Data
@@ -30,9 +31,10 @@ const getProjects = async (): Promise<Project[]> => {
 };
 
 // **Dynamic Metadata**
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await props.params;
   const projects = await getProjects();
-  const project = projects.find((project) => project.slug === params.slug);
+  const project = projects.find((project) => project.slug === slug);
 
   return {
     title: project ? `${project.heading} - Bhoodhan Infratech` : "Project Not Found",
@@ -41,9 +43,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // **Project Page Component**
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
+export default async function ProjectPage(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params;
   const projects = await getProjects();
-  const project = projects.find((project) => project.slug === params.slug);
+  const project = projects.find((project) => project.slug === slug);
 
   if (!project) {
     return (
@@ -92,18 +95,45 @@ export default async function ProjectPage({ params }: { params: { slug: string }
           </div>
         )}
 
-        {/* Video */}
-        {project.video && project.thumbnail && (
+        {/* Videos (multiple) */}
+        {project.videos && Array.isArray(project.videos) && project.videos.length > 0 && (
+          <div className="flex flex-col gap-8 mb-8">
+            {project.videos.map((video: { url: string; thumbnail: string }, index: number) => (
+              <Link
+                key={index}
+                href={video.url}
+                target="_blank"
+                className="relative flex gap-10 h-full group/image"
+              >
+                <div className="w-full mx-auto bg-transparent dark:bg-transparent group h-full">
+                  <div className="flex flex-1 w-full h-full flex-col space-y-2 relative">
+                    <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto" />
+                    <Image
+                      src={video.thumbnail}
+                      alt={`Video Thumbnail ${index + 1}`}
+                      width={800}
+                      height={800}
+                      className="h-full w-full aspect-square object-cover object-center rounded-sm blur-none group-hover/image:blur-md transition-all duration-200"
+                    />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {/* Video (single, fallback for old data) */}
+        {project.video && project.thumbnail && !project.videos && (
           <Link
             href={project.video}
-            target="__blank"
+            target="_blank"
             className="relative flex gap-10 h-full group/image mb-8"
           >
             <div className="w-full mx-auto bg-transparent dark:bg-transparent group h-full">
               <div className="flex flex-1 w-full h-full flex-col space-y-2 relative">
                 <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto" />
                 <Image
-                  src={project.thumbnail} // Use the thumbnail from the JSON file
+                  src={project.thumbnail}
                   alt="Video Thumbnail"
                   width={800}
                   height={800}

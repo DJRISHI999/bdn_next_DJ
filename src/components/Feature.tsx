@@ -271,7 +271,7 @@ export const SkeletonTwo = () => {
 export const SkeletonThree = () => {
   return (
     <Link
-      href="https://youtube.com/shorts/M4sTwnWq0_A?si=-nVijDShV0S_X67o"
+      href="https://youtu.be/WedI_v31URM?si=bn1uau2xVgLN5UR6"
       target="__blank"
       className="relative flex gap-10 h-full group/image"
     >
@@ -279,7 +279,7 @@ export const SkeletonThree = () => {
         <div className="flex flex-1 w-full h-full flex-col space-y-2 relative">
           <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto" />
           <Image
-            src="/images/drona_residency.webp"
+            src="/images/UMANG CITY 1.webp"
             alt="header"
             width={800}
             height={800}
